@@ -10,11 +10,15 @@ const app = express();
 
 const productsRoute = require('./routes/products');
 const usersRoute = require('./routes/users');
+const ordersRoute = require('./routes/orders')
 
 //Use Routes
 
 app.use('/api/products', productsRoute);
 app.use('/api/users', usersRoute);
+app.use('/api/orders', ordersRoute);
+
+
 
 
 app.use(cors({
