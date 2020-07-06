@@ -36,39 +36,37 @@ router.get('/',(req,res)=>{
 });
 
 /*GET SINGLE ORDER */
-router.get('/:id', (req, res)=>{
+router.get('/:id', async (req, res) => {
+    let orderId = req.params.id;
+    console.log(orderId);
 
-    const orderId = req.params.id;
-
-
-    database.table('orders_details as od').join([
-        {
-            table: 'orders as o',
-            on: 'o.id = od.order_id'
-        },
-
-        {
-            table: 'products as p',
-            on: 'p.id = od.product_id'
-        },
-        {
-            table: 'users as u',
-            on: 'u.id = o.user_id'
-        }
-    ])
-        .withFields(['o.id', 'p.title as name', 'p.description', 'p.price', 'u.username'])
-        .filter({'o.id':orderId})
+    database.table('orders_details as od')
+        .join([
+            {
+                table: 'orders as o',
+                on: 'o.id = od.order_id'
+            },
+            {
+                table: 'products as p',
+                on: 'p.id = od.product_id'
+            },
+            {
+                table: 'users as u',
+                on: 'u.id = o.user_id'
+            }
+        ])
+        .withFields(['o.id', 'p.title', 'p.description', 'p.price', 'p.image', 'od.quantity as quantityOrdered'])
+        .filter({'o.id': orderId})
         .getAll()
         .then(orders => {
-            if(orders.length > 0) {
-                res.status(200).json(orders);
+            console.log(orders);
+            if (orders.length > 0) {
+                res.json(orders);
+            } else {
+                res.json({message: "No orders found"});
             }
-            else {
-                res.json({message: `No orders found with orderId ${orderId}`});
-            }
-        }).catch(err => console.log(err));
 
-
+        }).catch(err => res.json(err));
 });
 
 /* PLACE A NEW ORDER */
