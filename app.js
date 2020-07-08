@@ -3,13 +3,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const bodyParser = require("body-parser");
 const app = express();
-
-
-
-
-
-
 
 app.use(cors({
     origin: "*",
@@ -17,6 +12,9 @@ app.use(cors({
     allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
 }));
 
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
