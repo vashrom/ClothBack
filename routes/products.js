@@ -10,7 +10,7 @@ const {database} = require('../config/helpers');
 router.get('/', function(req, res) {
 
   let page = (req.query.page != undefined && req.query.page != 0) ? req.query.page : 1; //set current page number
-  const limit = (req.query.limit != undefined && req.query.limit != 0) ? req.query.limit : 10; // set limit of items per page
+  const limit = (req.query.limit != undefined && req.query.limit != 0) ? req.query.limit : 12; // set limit of items per page
 
   let startValue;
   let endValue;
@@ -149,6 +149,37 @@ router.get('/category/:catName', (req, res) =>{
 
 
         }).catch(err => console.log(err));
+
+});
+
+/*NEW PRODUCT*/
+router.post('/new', (req,res) => {
+
+
+    let products = req.body;
+
+    if(req.body) {
+        database.table('products')
+            .insert({
+                title: products.title,
+                image: products.image,
+                images: products.images,
+                description: products.description,
+                price: products.price,
+                quantity: products.quantity,
+                short_desc: products.short_desc,
+                cat_id: products.cat_id
+            }).catch(err => console.log(err));
+        res.json({
+            message: `Product added `,
+            success: true,
+        });
+    }
+    else{
+        res.json({message: 'Failed to add product', success: false})
+    }
+
+
 
 });
 
