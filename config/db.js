@@ -13,6 +13,8 @@ const sequelize = new Sequelize("mega_shop", "root", "", {
     }
 })
 
+
+
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 

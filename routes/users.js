@@ -9,6 +9,17 @@ users.use(cors());
 
 process.env.SECRET_KEY = 'secret'
 
+users.get('/', function (req,res, next) {
+    User.findAll()
+        .then(products => {
+            res.json(products)
+        })
+        .catch(err => {
+            res.send('error: '+ err );
+        })
+
+})
+
 //REGISTER
 users.post('/register', (req,res)=> {
     const today = new Date()

@@ -12,6 +12,8 @@ app.use(cors({
     allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
 }));
 
+//DB Conn
+require("./config/db");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))

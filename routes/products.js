@@ -1,186 +1,127 @@
 const express = require('express');
-const router = express.Router();
-const {database} = require('../config/helpers');
+const products = express.Router();
+const cors = require("cors");
+products.use(cors());
 
+const Product = require('../models/Product');
+const Category = require('../models/Category');
 
+Category.hasMany(Product, {as: "Products" ,foreignKey:'cat_id'});
+Product.belongsTo(Category,{as: "Category", foreignKey: 'cat_id'});
 
 
 
 /* GET all products. */
-router.get('/', function(req, res) {
-
-  let page = (req.query.page != undefined && req.query.page != 0) ? req.query.page : 1; //set current page number
-  const limit = (req.query.limit != undefined && req.query.limit != 0) ? req.query.limit : 12; // set limit of items per page
-
-  let startValue;
-  let endValue;
-
-  if(page > 0)
-  {
-    startValue = (page * limit ) - limit; //0,10,20..50,60
-    endValue = page * limit;
-  }
-  else
-  {
-    startValue = 0;
-    endValue = 10;
-  }
-
-  database.table('products as p')
-      .join([{
-        table: 'categories as c',
-        on: 'c.id = p.cat_id'
-      }])
-      .withFields(['c.title as category',
-      'p.title as name',
-          'p.price',
-          'p.description',
-          'p.quantity',
-          'p.image',
-          'p.id'
-      ])
-      .slice(startValue,endValue)
-      .sort({id: .1})
-      .getAll()
-      .then(prods=>{
-        if(prods.length > 0){
-          res.status(200).json({
-            count: prods.length,
-            products: prods
-          });
-        }
-        else{
-          res.json({message: 'No products founds'});
-        }
+products.get('/', function (req,res) {
 
 
-      }).catch(err => console.log(err));
 
-});
+    Product.findAll(  {
+        include: [{
+            model: Category, as: 'Category',
 
+        }],
+    })
+        .then(products => {
+            if(products.length > 0)
+            {
+                let prodsJSON = JSON.parse(JSON.stringify(products));
+                prodsJSON.forEach(element => element.category = element.Category.title);
+                res.status(200).json({
+                count: prodsJSON.length,
+                    products: prodsJSON
 
-/* GET SINGLE PRODUCT */
-router.get('/:prodId', (req,res) =>{
-
-    let productId = req.params.prodId;
-    console.log(productId);
-
-
-    database.table('products as p')
-        .join([{
-            table: 'categories as c',
-            on: 'c.id = p.cat_id'
-        }])
-        .withFields(['c.title as category',
-            'p.title as name',
-            'p.price',
-            'p.description',
-            'p.quantity',
-            'p.image',
-            'p.images',
-            'p.id'
-        ])
-        .filter({'p.id':productId})
-        .get()
-        .then(prod=>{
-            if(prod){
-                res.status(200).json(prod);
+                })
             }
             else{
-                res.json({message: `No product found with product id ${productId}`});
+                res.json({message: 'No products found'})
             }
+        })
+        .catch(err => {
+            res.send('error: '+ err );
+        })
 
+})
 
-        }).catch(err => console.log(err));
+/* GET SINGLE PRODUCT */
+products.get('/:id', function(req,res){
+    Product.findOne({
+        where: {
+            id: req.params.id
+        },
+        include: [{
+            model: Category, as: 'Category',
 
-});
+        }]
+    })
+        .then(product => {
+            if(product) {
+
+                let prodJSON = JSON.parse(JSON.stringify(product));
+                prodJSON.category = prodJSON.Category.title;
+
+                res.json(prodJSON);
+            } else {
+                res.send('Product does not exist');
+            }
+        })
+        .catch(err => {
+            res.send('error: '+err)
+        })
+})
 
 
 
 /* GET ALL PRODUCTS FROM ONE CATEGORY */
-router.get('/category/:catName', (req, res) =>{
+products.get('/category/:cat_name', (req, res) => {
 
-    let page = (req.query.page != undefined && req.query.page != 0) ? req.query.page : 1; //set current page number
-    const limit = (req.query.limit != undefined && req.query.limit != 0) ? req.query.limit : 10; // set limit of items per page
+    Product.findAll({
 
-    let startValue;
-    let endValue;
+        include: [{
+           model: Category, as: 'Category'
+        }],
+        where: {
+            '$Category.title$': req.params.cat_name
+        }
+        }
+    )
+        .then(products => {
 
-    if(page > 0)
-    {
-        startValue = (page * limit ) - limit; //0,10,20..50,60
-        endValue = page * limit;
-    }
-    else
-    {
-        startValue = 0;
-        endValue = 10;
-    }
-
-    //Fetch the category name from the url
-    const cat_title = req.params.catName;
-
-    database.table('products as p')
-        .join([{
-            table: 'categories as c',
-            on: `c.id = p.cat_id WHERE c.title LIKE '%${cat_title}%'`
-        }])
-        .withFields(['c.title as category',
-            'p.title as name',
-            'p.price',
-            'p.description',
-            'p.quantity',
-            'p.image',
-            'p.id'
-        ])
-        .slice(startValue,endValue)
-        .sort({id: .1})
-        .getAll()
-        .then(prods=>{
-            if(prods.length > 0){
-                res.status(200).json({
-                    count: prods.length,
-                    products: prods
-                });
+            if(products.length > 0) {
+                let prodsJSON = JSON.parse(JSON.stringify(products));
+                prodsJSON.forEach(element => element.category = element.Category.title);
+                res.json(prodsJSON)
             }
-            else{
-                res.json({message: `No products found from ${cat_title} category.`});
+            else {
+                res.json({message: 'No products found in this category'});
             }
+        })
+        .catch(err => {
+            res.send('error: '+ err );
+        })
+})
 
 
-        }).catch(err => console.log(err));
 
-});
-
-/*NEW PRODUCT*/
-router.post('/new', (req,res) => {
-
-
-    let products = req.body;
-
-    if(req.body) {
-        database.table('products')
-            .insert({
-                title: products.title,
-                image: products.image,
-                images: products.images,
-                description: products.description,
-                price: products.price,
-                quantity: products.quantity,
-                short_desc: products.short_desc,
-                cat_id: products.cat_id
-            }).catch(err => console.log(err));
+products.post('/new', (req,res) => {
+    if(!req.body.title)
+    {
+        res.status(400)
         res.json({
-            message: `Product added `,
-            success: true,
-        });
+          error: 'Bad Data'
+        })
     }
     else{
-        res.json({message: 'Failed to add product', success: false})
+        Product.create(req.body)
+            .then(data=> {
+                res.send(data)
+            })
+            .catch(err => {
+                res.json('error: '+err)
+            })
     }
+})
+
+module.exports = products;
 
 
-
-});
-
-module.exports = router;
