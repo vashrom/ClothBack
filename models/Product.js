@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require("../config/db");
-const Category = require('../models/Category');
 
 module.exports = db.sequelize.define(
         'product',
