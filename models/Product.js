@@ -33,6 +33,9 @@ module.exports = db.sequelize.define(
             },
             cat_id: {
                 type: Sequelize.INTEGER,
+            },
+            size_id: {
+                type: Sequelize.INTEGER,
             }
         },
         {

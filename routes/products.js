@@ -5,20 +5,24 @@ products.use(cors());
 
 const Product = require('../models/Product');
 const Category = require('../models/Category');
+const Size = require('../models/Size');
 
 Category.hasMany(Product, {as: "Products" ,foreignKey:'cat_id'});
 Product.belongsTo(Category,{as: "Category", foreignKey: 'cat_id'});
 
+// Product.belongsTo(Size,{as: "Size", foreignKey: 'size_id'});
+// Size.hasMany(Product, {as: "Category", foreignKey:'size_id'});
+Product.hasMany(Size,{as: "Size", foreignKey: 'product_id'});
+Size.belongsTo(Product, {as: "Category", foreignKey:'product_id'});
 
 
 /* GET all products. */
 products.get('/', function (req,res) {
 
-
-
     Product.findAll(  {
         include: [{
             model: Category, as: 'Category',
+            model: Size, as: 'Size'
 
         }],
     })
@@ -26,7 +30,7 @@ products.get('/', function (req,res) {
             if(products.length > 0)
             {
                 let prodsJSON = JSON.parse(JSON.stringify(products));
-                prodsJSON.forEach(element => element.category = element.Category.title);
+                //prodsJSON.forEach(element => element.category = element.Category.title);
                 res.status(200).json({
                 count: prodsJSON.length,
                     products: prodsJSON
