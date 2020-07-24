@@ -10,10 +10,9 @@ const Size = require('../models/Size');
 Category.hasMany(Product, {as: "Products" ,foreignKey:'cat_id'});
 Product.belongsTo(Category,{as: "Category", foreignKey: 'cat_id'});
 
-// Product.belongsTo(Size,{as: "Size", foreignKey: 'size_id'});
-// Size.hasMany(Product, {as: "Category", foreignKey:'size_id'});
-Product.hasMany(Size,{as: "Size", foreignKey: 'product_id'});
-Size.belongsTo(Product, {as: "Category", foreignKey:'product_id'});
+
+Size.hasMany(Product, {as: "Product", foreignKey:'size_id'});
+Product.belongsTo(Size,{as: "Size", foreignKey: 'size_id'});
 
 
 /* GET all products. */
@@ -21,16 +20,19 @@ products.get('/', function (req,res) {
 
     Product.findAll(  {
         include: [{
-            model: Category, as: 'Category',
-            model: Size, as: 'Size'
-
-        }],
+            model: Size, as: 'Size',
+                },
+            {
+                model: Category, as: 'Category'
+            }],
     })
         .then(products => {
             if(products.length > 0)
             {
                 let prodsJSON = JSON.parse(JSON.stringify(products));
-                //prodsJSON.forEach(element => element.category = element.Category.title);
+                 prodsJSON.forEach(element => element.category = element.Category.title);
+                prodsJSON.forEach(element => element.XS = element.Size.XS);
+
                 res.status(200).json({
                 count: prodsJSON.length,
                     products: prodsJSON
@@ -56,13 +58,22 @@ products.get('/:id', function(req,res){
         include: [{
             model: Category, as: 'Category',
 
-        }]
+        },
+            {
+                model: Size, as: 'Size',
+
+            }
+
+        ]
     })
         .then(product => {
             if(product) {
 
                 let prodJSON = JSON.parse(JSON.stringify(product));
                 prodJSON.category = prodJSON.Category.title;
+                prodJSON.XL = prodJSON.Size.XL;
+
+
 
                 res.json(prodJSON);
             } else {

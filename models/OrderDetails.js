@@ -24,6 +24,12 @@ module.exports = db.sequelize.define(
         quantity: {
             type: Sequelize.INTEGER
         },
+        size: {
+            type: Sequelize.STRING
+        },
+       color: {
+            type: Sequelize.STRING
+        },
 
     },
     {

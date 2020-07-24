@@ -28,11 +28,11 @@ module.exports = db.sequelize.define(
 
         XXL: {
             type: Sequelize.INTEGER
-        },
-        product_id: {
-            type: Sequelize.INTEGER,
-            allowNull: false
         }
+        // product_id: {
+        //     type: Sequelize.INTEGER,
+        //     allowNull: false
+        // }
     },
     {
         timestamps: false
