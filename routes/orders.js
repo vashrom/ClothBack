@@ -17,7 +17,7 @@ router.get('/',(req,res)=>{
             on: 'u.id = o.user_id'
         }
     ])
-        .withFields(['o.id', 'p.title as name', 'p.description', 'p.price'])
+        .withFields(['o.id', 'p.title', 'p.description', 'p.price', 'p.image',  'od.quantity as quantity', 'od.size as size', 'od.color as color'])
         .sort({id: -1})
         .getAll()
         .then(orders => {
@@ -50,7 +50,7 @@ router.get('/:id', async (req, res) => {
                 on: 'u.id = o.user_id'
             }
         ])
-        .withFields(['o.id', 'p.title', 'p.description', 'p.price', 'p.image', 'od.quantity as quantityOrdered'])
+        .withFields(['o.id', 'p.title', 'p.description', 'p.price', 'p.image', 'od.quantity as quantity'])
         .filter({'o.id': orderId})
         .getAll()
         .then(orders => {
