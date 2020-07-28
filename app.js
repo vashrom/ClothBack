@@ -30,6 +30,7 @@ const productsRoute = require('./routes/products');
 const usersRoute = require('./routes/users');
 const ordersRoute = require('./routes/orders');
 const blogRoute = require('./routes/blogs');
+const commentsRoute = require('./routes/comments');
 
 //Use Routes
 
@@ -37,5 +38,6 @@ app.use('/api/products', productsRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/orders', ordersRoute);
 app.use('/api/blog', blogRoute);
+app.use('/api/comments', commentsRoute);
 
 module.exports = app;

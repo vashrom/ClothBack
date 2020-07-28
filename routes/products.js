@@ -31,7 +31,6 @@ products.get('/', function (req,res) {
             {
                 let prodsJSON = JSON.parse(JSON.stringify(products));
                  prodsJSON.forEach(element => element.category = element.Category.title);
-                prodsJSON.forEach(element => element.XS = element.Size.XS);
 
                 res.status(200).json({
                 count: prodsJSON.length,
@@ -71,10 +70,6 @@ products.get('/:id', function(req,res){
 
                 let prodJSON = JSON.parse(JSON.stringify(product));
                 prodJSON.category = prodJSON.Category.title;
-                prodJSON.XL = prodJSON.Size.XL;
-
-
-
                 res.json(prodJSON);
             } else {
                 res.send('Product does not exist');
