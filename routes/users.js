@@ -11,8 +11,8 @@ process.env.SECRET_KEY = 'secret'
 
 users.get('/', function (req,res, next) {
     User.findAll()
-        .then(products => {
-            res.json(products)
+        .then(users => {
+            res.json({users:users})
         })
         .catch(err => {
             res.send('error: '+ err );
@@ -105,6 +105,34 @@ users.get('/profile', (req, res) => {
             res.send('error: '+err)
         })
 
+})
+
+users.put('/:id', (req,res) => {
+
+        User.update(req.body, { where: {
+                id: req.params.id
+            }})
+            .then(data=> {
+                res.send(data)
+            })
+            .catch(err => {
+                res.json('error: '+err)
+            })
+
+});
+
+users.delete('/:id', (req,res)=>{
+    User.destroy({
+            where: {
+                id: req.params.id
+            },
+        }
+    );
+    return res.json({
+        status: "ok",
+        data: users
+
+    })
 })
 
 

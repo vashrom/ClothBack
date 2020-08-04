@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Лип 27 2020 р., 16:23
+-- Час створення: Лип 28 2020 р., 18:14
 -- Версія сервера: 10.3.13-MariaDB-log
 -- Версія PHP: 7.1.32
 
@@ -96,6 +96,54 @@ INSERT INTO `categories` (`id`, `title`) VALUES
 (4, 'Shirts'),
 (6, 'Dresses'),
 (7, 'Shoes');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблиці `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(10) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `cat_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп даних таблиці `comments`
+--
+
+INSERT INTO `comments` (`id`, `name`, `email`, `text`, `cat_id`) VALUES
+(1, 'User 2', 'user2@gmail.com', 'Second comment', 2),
+(2, 'User 1', 'user@gmail.com', 'First comment!', 1),
+(3, 'User 1', 'user@gmail.com', 'First comment!', 1),
+(4, 'Lofi', 'saf@ag', 'aqwqg', 1),
+(5, 'XXXX', 'xxx@xxx', 'xxxxxxxxxxxxx', 2),
+(6, 'GGG', 'GG@GG', 'GGGGGGGG', 1),
+(7, 'Returner', 'return@gmail.com', 'qgegqgeqgqegqeg', 2),
+(8, 'Contacter', 'contact@gmail.com', 'gqegrgqegq', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблиці `comment_categories`
+--
+
+CREATE TABLE `comment_categories` (
+  `id` int(10) NOT NULL,
+  `title` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп даних таблиці `comment_categories`
+--
+
+INSERT INTO `comment_categories` (`id`, `title`) VALUES
+(1, 'contact'),
+(2, 'return'),
+(3, 'blog');
 
 -- --------------------------------------------------------
 
@@ -433,7 +481,8 @@ INSERT INTO `orders` (`id`, `user_id`, `fname`, `lname`, `country`, `street`, `p
 (327, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (328, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (329, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(330, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(330, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(331, 2, 'Vasko', 'SSdd', 'SSS', 'SSSS', NULL, 'Tysiv', 'vas-hrom@ukr.net', '21212');
 
 -- --------------------------------------------------------
 
@@ -613,7 +662,9 @@ INSERT INTO `orders_details` (`id`, `order_id`, `product_id`, `quantity`, `size`
 (501, 329, 54, 1, '', ''),
 (502, 329, 55, 1, NULL, NULL),
 (503, 330, 59, 1, '', ''),
-(504, 330, 62, 1, NULL, NULL);
+(504, 330, 62, 1, NULL, NULL),
+(505, 331, 91, 1, '', ''),
+(506, 331, 90, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -649,8 +700,9 @@ INSERT INTO `products` (`id`, `title`, `image`, `images`, `description`, `price`
 (61, 'Boat neck sweater with decrease stitching\r\n', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5687/864/712/5687864712_6_1_16.jpg?t=1592847795895&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5687/864/712/5687864712_2_4_16.jpg?t=1592847795895&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5687/864/712/5687864712_2_3_16.jpg?t=1592847795895&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5687/864/712/5687864712_2_2_16.jpg?t=1592847795895&impolicy=massimodutti-itxmedium&imwidth=600', '\r\nMade of 100% cotton\r\n\r\nStraight\r\n\r\nBoat neck', 70, 100, '', 3, 1),
 (62, 'Sweatshirt with adjustable hood\r\n', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6835/888/800/6835888800_1_1_16.jpg?t=1589208486953&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6835/888/800/6835888800_2_1_16.jpg?t=1589208486953&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6835/888/800/6835888800_2_2_16.jpg?t=1589208486953&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6835/888/800/6835888800_2_3_16.jpg?t=1589208486953&impolicy=massimodutti-itxmedium&imwidth=600', 'Sweatshirt\r\n\r\nStraight\r\n\r\nAdjustable hood\r\n\r\nStretch hem', 80, 0, '', 3, 1),
 (89, 'Black Dress', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/101688926_302058804522201_5250209285083386065_o.jpg?_nc_cat=107&_nc_sid=a26aad&_nc_ohc=fvfvc5HY94EAX-knjA6&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=b93c70578a006e46f38ac3042d74be63&oe=5F44451F', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/101985634_302058837855531_791076211953094523_o.jpg?_nc_cat=111&_nc_sid=a26aad&_nc_ohc=dcAdlsv9FxsAX-Y5Xrs&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=41e526099160dc5c1d3a9ca6671c0754&oe=5F42C30A;https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/101379554_302058871188861_3282210923230642599_o.jpg?_nc_cat=102&_nc_sid=a26aad&_nc_ohc=Y50mpHrocTUAX8wM6oy&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=6d2c7dc480d85d90b5f68d6e72276762&oe=5F428273;https://scontent.fifo2-1.fna.fbcdn.net/v/l/t1.0-0/p480x480/102439612_302058911188857_1693129611366013292_o.jpg?_nc_cat=106&_nc_sid=a26aad&_nc_ohc=Lyz0WxZD7v0AX_DawHL&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=ef9a7d8cd2e2eb1c633949b2eb805e88&oe=5F45E977', 'Образ который не требует комментария. Блуза изготовлена  из смесового льна, что даёт изделию умеренную мятость. Изделие одновременно простое и элегантное, которое никогда не будет лишним в летнем гардеробе.', 1080, 33, '', 6, 3),
-(90, 'Classic dress', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/98170669_288766975851384_811752035874504704_o.jpg?_nc_cat=102&_nc_sid=a26aad&_nc_ohc=_wCnyMN3fU0AX_Au5nA&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=82493944c3bf50ab4fc838b030deaa79&oe=5F42AD96', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/98024870_288767019184713_4250784799922323456_o.jpg?_nc_cat=101&_nc_sid=a26aad&_nc_ohc=9mDuOTya_roAX_XJzZu&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=206e13616864203f409126691dc18d99&oe=5F44E9AB;https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/98145388_288767072518041_3800709387358568448_o.jpg?_nc_cat=106&_nc_sid=a26aad&_nc_ohc=ywxdpGDLqaAAX9ktWR7&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=8b72bbef60ecf46f076660df557f9a59&oe=5F441F4C;https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/99106300_288767115851370_3101579472818667520_o.jpg?_nc_cat=106&_nc_sid=a26aad&_nc_ohc=XHYPoBDh0aEAX8h5PFl&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=575bac62dc320226cc3d209852da44aa&oe=5F43AF70', 'І знову класика!!! Краса (надія) і затишок! Цитую великих: ′′ Найголовніше в жіночому одязі - це жінка, яка його носить ′′ Єва Сен-Лоран', 1190, 50, '', 6, 4),
-(91, 'Square T-Shirt', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/97286888_286725196055562_8592485274292846592_o.jpg?_nc_cat=101&_nc_sid=a26aad&_nc_ohc=qVRWETR4z2kAX_NrwcZ&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=e3f49cbd1d7580ce93de6a63c0ad4e8d&oe=5F43E77A', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/99140945_286725149388900_1704623612989800448_o.jpg?_nc_cat=106&_nc_sid=a26aad&_nc_ohc=p6adxwoVskUAX9Yd2A7&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=0494a625444716a8ec0b4d49c0290f3b&oe=5F464201', 'Клітка завжди в тренді. Футболка Кейдж @baydalini_boutique, дуже популярна модель в так званому американському стилі, натуральні кольори, оверсайз. Ідеально поєднані з джинсовим одягом: бойфренди, шорти, комбінезони - порвані та потерті чоботи або кросівки.Розмір: S, M, L, XL', 1480, 100, '', 4, 5);
+(90, 'Classic dress', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/98170669_288766975851384_811752035874504704_o.jpg?_nc_cat=102&_nc_sid=a26aad&_nc_ohc=_wCnyMN3fU0AX_Au5nA&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=82493944c3bf50ab4fc838b030deaa79&oe=5F42AD96', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/98024870_288767019184713_4250784799922323456_o.jpg?_nc_cat=101&_nc_sid=a26aad&_nc_ohc=9mDuOTya_roAX_XJzZu&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=206e13616864203f409126691dc18d99&oe=5F44E9AB;https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/98145388_288767072518041_3800709387358568448_o.jpg?_nc_cat=106&_nc_sid=a26aad&_nc_ohc=ywxdpGDLqaAAX9ktWR7&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=8b72bbef60ecf46f076660df557f9a59&oe=5F441F4C;https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/99106300_288767115851370_3101579472818667520_o.jpg?_nc_cat=106&_nc_sid=a26aad&_nc_ohc=XHYPoBDh0aEAX8h5PFl&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=575bac62dc320226cc3d209852da44aa&oe=5F43AF70', 'І знову класика!!! Краса (надія) і затишок! Цитую великих: ′′ Найголовніше в жіночому одязі - це жінка, яка його носить ′′ Єва Сен-Лоран', 1190, 48, '', 6, 4),
+(91, 'Square T-Shirt', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/97286888_286725196055562_8592485274292846592_o.jpg?_nc_cat=101&_nc_sid=a26aad&_nc_ohc=qVRWETR4z2kAX_NrwcZ&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=e3f49cbd1d7580ce93de6a63c0ad4e8d&oe=5F43E77A', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/99140945_286725149388900_1704623612989800448_o.jpg?_nc_cat=106&_nc_sid=a26aad&_nc_ohc=p6adxwoVskUAX9Yd2A7&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=0494a625444716a8ec0b4d49c0290f3b&oe=5F464201', 'Клітка завжди в тренді. Футболка Кейдж @baydalini_boutique, дуже популярна модель в так званому американському стилі, натуральні кольори, оверсайз. Ідеально поєднані з джинсовим одягом: бойфренди, шорти, комбінезони - порвані та потерті чоботи або кросівки.Розмір: S, M, L, XL', 1480, 99, '', 4, 5),
+(92, 'Black and white shirt', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/87853042_223384215722994_4794673581109805056_o.jpg?_nc_cat=106&_nc_sid=a26aad&_nc_ohc=OLsrfjnURSwAX_6Vawg&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=88e74cf8c8c5c6e88a167831c3fddd18&oe=5F45DDEF', 'https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/88180717_223384042389678_1921765159336935424_o.jpg?_nc_cat=101&_nc_sid=a26aad&_nc_ohc=uuPGEvLqw_cAX9miAYJ&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=fd718e62804e2d0f899bdede8648d3c6&oe=5F450878;https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/89228468_223384102389672_2654040964292673536_o.jpg?_nc_cat=109&_nc_sid=a26aad&_nc_ohc=MQJKZBcGasUAX-VFs7B&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=c7de0227f95f40c83593339839ab3353&oe=5F46F20D;https://scontent.fifo2-1.fna.fbcdn.net/v/t1.0-0/p480x480/89160417_223384162389666_3989424340469809152_o.jpg?_nc_cat=106&_nc_sid=a26aad&_nc_ohc=6cpvZwp2WO8AX_KhCKb&_nc_oc=AQk9hkCb-Z534tN5jWuGl23RCYVF4k94uqCSbVntxkYjm2QCKRdislbhm009LZ-USVA&_nc_ht=scontent.fifo2-1.fna&_nc_tp=6&oh=68edc4274affce68876cbf06018e59ad&oe=5F458B11', 'Щоб відчути себе в центрі уваги, жіноча блуза без рукава зручного крою, ексклюзивний дизайн з глибоким вирізом позаду.\r\nРозмір: S, M, L, XL, XXL\r\nЦіна: 1190 грн.\r\nСклад: льон,\r\nПоліестер\r\n Стаття: B12', 1190, 50, 'Щоб відчути себе в центрі уваги, жіноча блуза без рукава зручного крою, ексклюзивний дизайн з глибоким вирізом позаду.\r\nРозмір: S, M, L, XL, XXL\r\nЦіна: 1190 грн.\r\nСклад: льон,\r\nПоліестер\r\n Стаття: B12', 4, 15);
 
 -- --------------------------------------------------------
 
@@ -677,7 +729,8 @@ INSERT INTO `sizes` (`XS`, `S`, `M`, `L`, `XL`, `XXL`, `id`) VALUES
 (8, 8, 8, 8, 8, 8, 2),
 (10, 10, 10, 10, 0, 0, 3),
 (10, 10, 10, 10, 10, 10, 4),
-(1, 1, 10, 1, 10, 1, 5);
+(1, 1, 10, 1, 10, 1, 5),
+(5, 5, 5, 5, 5, 5, 15);
 
 -- --------------------------------------------------------
 
@@ -742,6 +795,18 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Індекси таблиці `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Індекси таблиці `comment_categories`
+--
+ALTER TABLE `comment_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Індекси таблиці `orders`
 --
 ALTER TABLE `orders`
@@ -761,7 +826,8 @@ ALTER TABLE `orders_details`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `products_ibfk_1` (`cat_id`);
+  ADD KEY `products_ibfk_1` (`cat_id`),
+  ADD KEY `size_id_to_sizes` (`size_id`);
 ALTER TABLE `products` ADD FULLTEXT KEY `description` (`description`);
 
 --
@@ -799,28 +865,40 @@ ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT для таблиці `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT для таблиці `comment_categories`
+--
+ALTER TABLE `comment_categories`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT для таблиці `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=331;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=332;
 
 --
 -- AUTO_INCREMENT для таблиці `orders_details`
 --
 ALTER TABLE `orders_details`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=505;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=507;
 
 --
 -- AUTO_INCREMENT для таблиці `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT для таблиці `sizes`
 --
 ALTER TABLE `sizes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT для таблиці `users`
@@ -855,7 +933,8 @@ ALTER TABLE `orders_details`
 -- Обмеження зовнішнього ключа таблиці `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `size_id_to_sizes` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

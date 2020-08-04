@@ -22,7 +22,7 @@ router.get('/',(req,res)=>{
         .getAll()
         .then(orders => {
             if(orders.length > 0) {
-                res.status(200).json(orders);
+                res.status(200).json({orders:orders});
             }
             else {
                 res.json({message: 'No orders found'});
@@ -50,13 +50,13 @@ router.get('/:id', async (req, res) => {
                 on: 'u.id = o.user_id'
             }
         ])
-        .withFields(['o.id', 'p.title', 'p.description', 'p.price', 'p.image', 'od.quantity as quantity'])
+        .withFields(['o.id', 'p.title', 'p.description', 'p.price', 'p.image', 'od.quantity as quantity','od.size', 'od.color'])
         .filter({'o.id': orderId})
         .getAll()
         .then(orders => {
             console.log(orders);
             if (orders.length > 0) {
-                res.json(orders);
+                res.json({orders:orders});
             } else {
                 res.json({message: "No orders found"});
             }
@@ -67,7 +67,7 @@ router.get('/:id', async (req, res) => {
 
 /* PLACE A NEW ORDER */
 router.post('/new', (req,res) => {
-    let {userId,fname, lname,country,street,postcode,city,email,phone, products} = req.body;
+    let {userId,fname, lname,country,street,postcode,city,email,phone,message, products} = req.body;
     if(userId != null && userId > 0 && !isNaN(userId))
     {
         database.table('orders')
@@ -80,25 +80,63 @@ router.post('/new', (req,res) => {
                 postcode: postcode,
                 city: city,
                 email: email,
-                phone: phone
+                phone: phone,
+                message: message
 
             }).then(newOrderId=>{
             if(newOrderId > 0)
             {
                 products.forEach(async (p) => {
-                    let data = await database.table('products').filter({id: p.id}).withFields(['quantity']).get();
+                    let data = await database.table('products').filter({id: p.id}).withFields(['quantity','xs','s','m','l','xl','xxl']).get();
                     let inCart = p.incart;
+                    let size = p.size;
+                    // let xs = p.xs;
+                    // let s = p.s;
+                    // let m = p.m;
+                    // let l = p.l;
+                    // let xl = p.xl;
+                    // let xxl = p.xl;
+
+
+                    switch (size) {
+                        case 'XS':
+                            data.xs = data.xs - inCart;
+                            break;
+                        case 'S':
+                            data.s = data.s - inCart;
+                            break;
+                        case 'M':
+                            data.m = data.m - inCart;
+                            break;
+                        case 'L':
+                            data.l = data.l - inCart;
+                            break;
+                        case 'XL':
+                            data.xl = data.xl - inCart;
+                            break;
+                        case 'XXL':
+                            data.xxl = data.xxl - inCart;
+                            break;
+                        default:
+                            console.log(":)")
+                    }
+
                     //Deduct the number of pieces ordered from the quantity column in db
                     if(data.quantity>0)
                     {
-                        data.quantity = data.quantity-inCart;
+                        //data.quantity = data.quantity-inCart;
+                        data.quantity = data.xs+data.s+data.m+data.l+data.xl+data.xxl;
+
+
                         if(data.quantity < 0){
                             data.quantity = 0;
+
                         }
                     }
                     else
                     {
                         data.quantity=0;
+
                     }
                     //INSERT ORDER DETAILS
                     database.table('orders_details')
@@ -107,12 +145,19 @@ router.post('/new', (req,res) => {
                             product_id: p.id,
                             quantity: inCart,
                             size: p.size,
-                            color: p.color
+                            color: p.color,
+
                         }).then(newId => {
                         database.table('products')
                             .filter({id: p.id})
                             .update({
-                                quantity: data.quantity
+                                quantity: data.quantity,
+                                xs: data.xs,
+                                s: data.s,
+                                m: data.m,
+                                l: data.l,
+                                xl: data.xl,
+                                xxl: data.xxl
                             }).then(successNum => {}).catch(err=>console.log(err));
                     }).catch(err => console.log(err));
                 });
@@ -133,6 +178,8 @@ router.post('/new', (req,res) => {
         res.json({message:'New order failed', success: false});
     }
 });
+
+
 /* FAKE PAYMENT GATEWAY CALL */
 router.post('/payment', (req,res)=>{
     setTimeout(()=>{
@@ -141,6 +188,20 @@ router.post('/payment', (req,res)=>{
 });
 module.exports = router;
 
+router.delete('/:id', (req,res)=>{
+    Product.destroy({
+            where: {
+                id: req.params.id
+            },
+        }
+    );
+    return res.json({
+        status: "ok",
+        data: products
+
+    })
+
+})
 
 
 

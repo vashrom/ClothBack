@@ -67,6 +67,49 @@ blog.post('/new', (req,res) => {
     }
 })
 
+
+blog.put('/:id', (req,res) => {
+    if(!req.body.title)
+    {
+        res.status(400)
+        res.json({
+            error: 'Bad Data'
+        })
+    }
+    else{
+        Blog.update(req.body, { where: {
+                id: req.params.id
+            }})
+            .then(data=> {
+                res.send(data)
+            })
+            .catch(err => {
+                res.json('error: '+err)
+            })
+    }
+});
+
+
+blog.delete('/:id', (req,res)=>{
+    Blog.destroy({
+            where: {
+                id: req.params.id
+            },
+        }
+    );
+    return res.json({
+        status: "ok",
+        data: blog
+
+    }).catch(error)
+    {
+        res.status(500).json({
+            status: "error",
+        })
+    }
+
+})
+
 module.exports = blog;
 
 

@@ -23,7 +23,7 @@ module.exports = db.sequelize.define(
                 type: Sequelize.STRING
             },
             price: {
-                type: Sequelize.INTEGER
+                type: Sequelize.DECIMAL
             },
             quantity: {
                 type: Sequelize.INTEGER
@@ -34,8 +34,24 @@ module.exports = db.sequelize.define(
             cat_id: {
                 type: Sequelize.INTEGER,
             },
-            size_id: {
+
+            xs: {
                 type: Sequelize.INTEGER,
+            },
+            s: {
+                type: Sequelize.INTEGER
+            },
+            m: {
+                type: Sequelize.INTEGER
+            },
+            l: {
+                type: Sequelize.INTEGER,
+            },
+            xl: {
+                type: Sequelize.INTEGER
+            },
+            xxl: {
+                type: Sequelize.INTEGER
             }
         },
         {

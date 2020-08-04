@@ -5,23 +5,18 @@ products.use(cors());
 
 const Product = require('../models/Product');
 const Category = require('../models/Category');
-const Size = require('../models/Size');
 
 Category.hasMany(Product, {as: "Products" ,foreignKey:'cat_id'});
 Product.belongsTo(Category,{as: "Category", foreignKey: 'cat_id'});
 
 
-Size.hasMany(Product, {as: "Product", foreignKey:'size_id'});
-Product.belongsTo(Size,{as: "Size", foreignKey: 'size_id'});
 
 
 /* GET all products. */
 products.get('/', function (req,res) {
 
     Product.findAll(  {
-        include: [{
-            model: Size, as: 'Size',
-                },
+        include: [
             {
                 model: Category, as: 'Category'
             }],
@@ -58,10 +53,7 @@ products.get('/:id', function(req,res){
             model: Category, as: 'Category',
 
         },
-            {
-                model: Size, as: 'Size',
 
-            }
 
         ]
     })
@@ -130,6 +122,50 @@ products.post('/new', (req,res) => {
                 res.json('error: '+err)
             })
     }
+})
+
+
+
+products.put('/:id', (req,res) => {
+    if(!req.body.title)
+    {
+        res.status(400)
+        res.json({
+            error: 'Bad Data'
+        })
+    }
+    else{
+        Product.update(req.body, { where: {
+                id: req.params.id
+            }})
+            .then(data=> {
+                res.send(data)
+            })
+            .catch(err => {
+                res.json('error: '+err)
+            })
+    }
+});
+
+
+products.delete('/:id', (req,res)=>{
+    Product.destroy({
+            where: {
+                id: req.params.id
+            },
+        }
+    );
+    return res.json({
+        status: "ok",
+        data: products
+
+    }).catch(error)
+    {
+        res.status(500).json({
+            status: "error",
+        })
+    }
+
 })
 
 module.exports = products;

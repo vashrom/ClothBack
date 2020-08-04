@@ -112,6 +112,49 @@ comments.post('/new', (req,res) => {
     }
 })
 
+comments.put('/:id', (req,res) => {
+    if(!req.body.title)
+    {
+        res.status(400)
+        res.json({
+            error: 'Bad Data'
+        })
+    }
+    else{
+        Comment.update(req.body, { where: {
+                id: req.params.id
+            }})
+            .then(data=> {
+                res.send(data)
+            })
+            .catch(err => {
+                res.json('error: '+err)
+            })
+    }
+});
+
+
+comments.delete('/:id', (req,res)=>{
+    Comment.destroy({
+            where: {
+                id: req.params.id
+            },
+        }
+    );
+    return res.json({
+        status: "ok",
+        data: comments
+
+    }).catch(error)
+    {
+        res.status(500).json({
+            status: "error",
+        })
+    }
+
+})
+
+
 module.exports = comments;
 
 
