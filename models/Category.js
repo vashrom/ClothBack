@@ -12,7 +12,16 @@ module.exports = db.sequelize.define(
         },
         title: {
             type: Sequelize.STRING
-        }
+        },
+        title_ua: {
+            type: Sequelize.STRING
+        },
+        title_ru: {
+            type: Sequelize.STRING
+        },
+        title_de: {
+            type: Sequelize.STRING
+        },
     },
     {
         timestamps: false

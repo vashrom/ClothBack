@@ -52,6 +52,33 @@ module.exports = db.sequelize.define(
             },
             xxl: {
                 type: Sequelize.INTEGER
+            },
+            title_ua: {
+                type: Sequelize.STRING
+            },
+            title_ru: {
+                type: Sequelize.STRING
+            },
+            title_de: {
+                type: Sequelize.STRING
+            },
+            price_ua: {
+                type: Sequelize.DECIMAL
+            },
+            price_ru: {
+                type: Sequelize.DECIMAL
+            },
+            price_de: {
+                type: Sequelize.DECIMAL
+            },
+            description_ua: {
+                type: Sequelize.STRING
+            },
+            description_ru: {
+                type: Sequelize.STRING
+            },
+            description_de: {
+                type: Sequelize.STRING
             }
         },
         {
