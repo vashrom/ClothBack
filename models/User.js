@@ -30,7 +30,11 @@ module.exports = db.sequelize.define(
         created:{
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
-        }
+        },
+        phone:{
+            type: Sequelize.STRING
+        },
+
     },
 
     {

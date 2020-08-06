@@ -5,6 +5,12 @@ ordinfo.use(cors());
 
 const Order = require('../models/Order');
 const OrderDetails = require('../models/OrderDetails');
+const Product = require('../models/Product');
+
+Order.hasMany(OrderDetails, {as: "OrderDetails" ,foreignKey:'order_id'});
+Product.hasMany(OrderDetails, {as: "OrderDetails", foreignKey:'product_id'});
+OrderDetails.belongsTo(Order,{as: "Order", foreignKey: 'order_id'});
+OrderDetails.belongsTo(Product,{as: "Product", foreignKey: 'product_id'});
 
 
 /* GET all comment elements. */
@@ -12,14 +18,14 @@ ordinfo.get('/', function (req,res) {
 
 
     Order.findAll(
-       )
+    )
         .then(ord => {
             if(ord.length > 0)
             {
 
                 res.status(200).json({
 
-                   orders: ord
+                    orders: ord
 
                 })
             }
@@ -32,6 +38,31 @@ ordinfo.get('/', function (req,res) {
         })
 
 })
+
+ordinfo.get('/user/:id', (req,res)=>{
+    OrderDetails.findAll({
+        include: [{
+            model: Order, as: 'Order',
+        },
+            {
+                model: Product, as: 'Product',
+            }
+        ],
+        where: {
+            '$Order.user_id$': req.params.id
+        }
+    }).then(orders => {
+        if(orders){
+            let OrdersJSON = JSON.parse(JSON.stringify(orders));
+            OrdersJSON.forEach(element => element.user_id = element.Order.user_id);
+            res.json({orders:orders})
+        }
+        else {res.send('Orders does not exist');}
+    }).catch(err => {
+        res.send('error: '+err)
+    })
+})
+
 
 ordinfo.delete('/:id', (req,res)=>{
 

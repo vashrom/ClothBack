@@ -28,7 +28,8 @@ users.post('/register', (req,res)=> {
         email: req.body.email,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
-        created: today
+        created: today,
+        phone: req.body.phone
     }
 
     User.findOne({
