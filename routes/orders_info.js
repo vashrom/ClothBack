@@ -39,29 +39,91 @@ ordinfo.get('/', function (req,res) {
 
 })
 
-ordinfo.get('/user/:id', (req,res)=>{
-    OrderDetails.findAll({
-        include: [{
-            model: Order, as: 'Order',
-        },
-            {
-                model: Product, as: 'Product',
+
+
+    let lang = 'ua';
+
+    ordinfo.get('/:lang/user/:id', (req, res) => {
+
+        lang = req.params.lang
+
+        OrderDetails.findAll({
+            include: [{
+                model: Order, as: 'Order',
+            },
+                {
+                    model: Product, as: 'Product',
+                    attributes: ['id', 'title_' + lang, 'image', 'images', 'description_' + lang, 'price_' + lang, 'quantity', 'cat_id', 'xs', 's', 'm', 'l', 'xl', 'xxl']
+
+                }
+            ],
+            where: {
+                '$Order.user_id$': req.params.id,
             }
-        ],
-        where: {
-            '$Order.user_id$': req.params.id
-        }
-    }).then(orders => {
-        if(orders){
-            let OrdersJSON = JSON.parse(JSON.stringify(orders));
-            OrdersJSON.forEach(element => element.user_id = element.Order.user_id);
-            res.json({orders:orders})
-        }
-        else {res.send('Orders does not exist');}
-    }).catch(err => {
-        res.send('error: '+err)
+        }).then(orders => {
+            if (orders) {
+                let OrdersJSON = JSON.parse(JSON.stringify(orders));
+                OrdersJSON.forEach(element => element.user_id = element.Order.user_id);
+
+
+                switch (lang) {
+                    case 'ua': {
+                        OrdersJSON.forEach(element => element.Product.title = element.Product.title_ua);
+                        OrdersJSON.forEach(element => element.Product.price = element.Product.price_ua);
+                        OrdersJSON.forEach(element => element.Product.description = element.Product.description_ua);
+
+
+                    }
+                        break;
+                    case 'de': {
+                        OrdersJSON.forEach(element => element.Product.title = element.Product.title_de);
+                        OrdersJSON.forEach(element => element.Product.price = element.Product.price_de);
+                        OrdersJSON.forEach(element => element.Product.description = element.Product.description_de);
+                    }
+                        break;
+                    case 'ru': {
+                        OrdersJSON.forEach(element => element.Product.title = element.Product.title_ru);
+                        OrdersJSON.forEach(element => element.Product.price = element.Product.price_ru);
+                        OrdersJSON.forEach(element => element.Product.description = element.Product.description_ru);
+                    }
+                        break;
+
+                }
+
+
+                res.json({orders: OrdersJSON})
+            } else {
+                res.send('Orders does not exist');
+            }
+        }).catch(err => {
+            res.send('error: ' + err)
+        })
     })
-})
+
+    ordinfo.get('/user/:id', (req, res) => {
+        OrderDetails.findAll({
+            include: [{
+                model: Order, as: 'Order',
+            },
+                {
+                    model: Product, as: 'Product',
+                }
+            ],
+            where: {
+                '$Order.user_id$': req.params.id
+            }
+        }).then(orders => {
+            if (orders) {
+                let OrdersJSON = JSON.parse(JSON.stringify(orders));
+                OrdersJSON.forEach(element => element.user_id = element.Order.user_id);
+                res.json({orders: orders})
+            } else {
+                res.send('Orders does not exist');
+            }
+        }).catch(err => {
+            res.send('error: ' + err)
+        })
+    })
 
 
 ordinfo.delete('/:id', (req,res)=>{
