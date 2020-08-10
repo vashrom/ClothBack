@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Сер 04 2020 р., 16:59
+-- Час створення: Сер 10 2020 р., 19:06
 -- Версія сервера: 10.3.13-MariaDB-log
 -- Версія PHP: 7.1.32
 
@@ -61,9 +61,6 @@ CREATE TABLE `blogs` (
 --
 
 INSERT INTO `blogs` (`id`, `title`, `image`, `images`, `text`, `category`, `date`) VALUES
-(1, 'Test Blog', 'https://blog.echizh.com.ua/wp-content/uploads/2017/10/blogging-e1484908296381.jpg', 'https://umi.ru/images/cms/data/blog/blog1.jpg;https://porositweb.com/wp-content/uploads/2019/11/krijo-nje-blog.jpg;https://www.patientpop.com/wp-content/uploads/Blogging101_Feature-e1512079399362-920x518.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Travel', '21 July, 2020'),
-(2, 'Get One blog', 'https://neilpatel.com/wp-content/uploads/2017/09/5-Common-Blogging-Mistakes-And-How-to-Fix-Them.jpg', NULL, 'I GET ONE BLOG ITEEEEm', 'Testing', '32 July, 2020'),
-(3, 'Blog from Postman', 'https://logodix.com/logo/2062870.png', '', 'Text from blog created by Postman', 'Test', '21 July, 2020'),
 (4, 'Pickachu!', 'https://vignette.wikia.nocookie.net/pokemon/images/4/49/Ash_Pikachu.png/revision/latest?cb=20200405125039', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQWejx1A1AUS1FgggjfcC-4iUXMg7C-GaJdrQ&usqp=CAU;https://assets.pokemon.com/assets/cms2/img/pokedex/full/026.png;https://pokemongolife.ru/p/Pichu.png', 'pikaaaaaaaaaaaachu', 'Travel', '22 July, 2021');
 
 -- --------------------------------------------------------
@@ -74,20 +71,20 @@ INSERT INTO `blogs` (`id`, `title`, `image`, `images`, `text`, `category`, `date
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL
+  `title` varchar(255) NOT NULL,
+  `title_ua` varchar(255) NOT NULL,
+  `title_ru` varchar(255) NOT NULL,
+  `title_de` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп даних таблиці `categories`
 --
 
-INSERT INTO `categories` (`id`, `title`) VALUES
-(1, 'Shoes'),
-(2, 'Electronics'),
-(3, 'Clothes'),
-(4, 'Shirts'),
-(6, 'Dresses'),
-(7, 'Shoes');
+INSERT INTO `categories` (`id`, `title`, `title_ua`, `title_ru`, `title_de`) VALUES
+(1, 'Shoes', 'Взуття', 'Обувь', 'Schuhe'),
+(4, 'Shirts', 'Сорочки', 'Рубашки', 'Hemden'),
+(6, 'Dresses', 'Сукні', 'Платья', 'Kleider');
 
 -- --------------------------------------------------------
 
@@ -108,56 +105,8 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `name`, `email`, `text`, `cat_id`) VALUES
-(8, 'Contacter', 'contact@gmail.com', 'gqegrgqegq', 1),
-(9, 'User 4', 'user@gmail.com', 'First comment!', 2),
-(15, 'Horse', 'ff@ff.ff', 'Bla-bla-bla', 2),
-(16, 'Mouse', 'ff@ff.ff', 'Bla-bla-bla', 2),
-(17, 'QQQ', 'qq@qq', 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 2),
-(18, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(19, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(20, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(21, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(22, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(23, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(24, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(25, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(26, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(27, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(28, 'CCc', 'ccc@cc', 'cccccccccccccccccc', 2),
-(29, 'ssssssssssssssssssssssssssssss', 'ssssss@ssssss', 'sssssssssssssssssssssssssssssssssssssssszx', 2),
-(30, 'ssssssssssssssssssssssssssssss', 'ssssss@ssssss', 'sssssssssssssssssssssssssssssssssssssssszx', 2),
-(31, 'ssssssssssssssssssssssssssssss', 'ssssss@ssssss', 'sssssssssssssssssssssssssssssssssssssssszx', 2),
-(32, 'ssssssssssssssssssssssssssssss', 'ssssss@ssssss', 'sssssssssssssssssssssssssssssssssssssssszx', 2),
-(33, 'ssssssssssssssssssssssssssssss', 'ssssss@ssssss', 'sssssssssssssssssssssssssssssssssssssssszx', 2),
-(34, 'ssssssssssssssssssssssssssssss', 'ssssss@ssssss', 'sssssssssssssssssssssssssssssssssssssssszx', 2),
-(35, 'ssssssssssssssssssssssssssssss', 'ssssss@ssssss', 'sssssssssssssssssssssssssssssssssssssssszx', 2),
-(36, 'ssssssssssssssssssssssssssssss', 'ssssss@ssssss', 'sssssssssssssssssssssssssssssssssssssssszx', 2),
-(37, 'dfcz', 'ff@ff.ff', 'safagasgasgasgasgccc', 2),
-(38, 'dfcz', 'ff@ff.ff', 'safagasgasgasgasgccc', 2),
-(39, 'sfasaf', 'asfasfasf@f', 'asgasasgas', 2),
-(40, 'sfasaf', 'asfasfasf@f', 'asgasasgas', 2),
-(41, 'sfasaf', 'asfasfasf@f', 'asgasasgas', 2),
-(42, 'sfasaf', 'asfasfasf@f', 'asgasasgasc', 2),
-(43, 'zzzzzzzzzz', 'ff@ff.ff', 'asasgasas', 2),
-(44, '11111111111', '111@11', '1111111111111111111111', 2),
-(45, 'dgsdsdh', 'sdhsdhsdh@asg', 'asgaasgasg', 2),
-(46, 'Horse', 'VVVVVVVVVV@V', 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv', 2),
-(47, 'asfasasfa', 'sfasfasf@fas', 'sadasfaf', 2),
-(48, 'asgasasg', 'ff@ff.ff', 'agwgagagagag', 2),
-(49, 'asfasf', 'asfa@asag', 'asfagasaggavav', 2),
-(50, 'ssdsg', 'wegwegwage@go.co', 'agsgag', 2),
-(51, 'Mush', 'vas-hrom@ukr.net', 'agqgb3f@gag', 2),
-(52, 'asgasg', 'asgasg@asgvvv', 'egagagawawgg', 2),
-(53, 'vas_hrom', 'gonevludd@gmail.com', 'sfafafq33gggg', 1),
-(57, 'xbsbs', 'dsgsdggdg@f', 'dsb', 2),
-(58, 'hhhh', 'hhhh@gsg', 'agsgashashah', 2),
-(59, 'Horse', 'fnsnsf@hahadh', 'haehaeh', 2),
-(60, 'ahaahe', 'asg@agasg', 'asaasenqnn', 2),
-(61, 'sdbvq', 'admin@gmail.com', 'qwgqggqrgbqe', 2),
-(62, 'qwfqwfqfqwf', 'ff@ff.ff', 'fqwfqwfqf', 2),
-(63, 'safwefwf', 'ff@ff.ff', 'qwqwqwqf', 2),
-(64, 'qwfqwqw', 'qwfqwfqwf@afawfawf', 'fqwfqwfqf', 2),
-(65, 'Horse', 'ff@ff.ff', 'qf1g1g13g1', 2);
+(66, 'Admin', 'admin@admin', 'Hello', 2),
+(67, 'Contact', 'ff@ff.ff', 'Contact message', 1);
 
 -- --------------------------------------------------------
 
@@ -196,7 +145,7 @@ CREATE TABLE `orders` (
   `city` varchar(30) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   `phone` varchar(30) DEFAULT NULL,
-  `message` text NOT NULL
+  `message` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -204,8 +153,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `fname`, `lname`, `country`, `street`, `postcode`, `city`, `email`, `phone`, `message`) VALUES
-(358, 30, 'Michael', 'GSA', 'USA', 'Ghryshevskoho', '77220', 'Los Angeles', 'ff@ff.ff', '(123) 456-7890', 'Call me later'),
-(359, 30, 'Vasko', 'Khrom', 'Ukraine', 'Ghryshevskoho', '77220', 'ZZZ', 'vas-hrom@ukr.net', '(123) 456-7890', 'Hello world');
+(375, 1, 'Vasko', '12231', 'Ukraine', 'Ghryshevskoho', '77220', 'Tysiv', 'vas-hrom@ukr.net', '(123) 456-7890', 'WoW'),
+(376, 1, 'Vasko', 'Khromyshyn', 'Ukraine', 'Ghryshevskoho', '77220', 'Tysiv', 'vas-hrom@ukr.net', '(123) 456-7890', 'Розмір М'),
+(377, 1, 'Mykola', 'Ukhanskyi', 'Ukraine', 'Ghryshevskoho', '77220', 'Tysiv', 'ukhanskyi@gmail.om', '+380994526936', 'Cool dresssss');
 
 -- --------------------------------------------------------
 
@@ -227,14 +177,12 @@ CREATE TABLE `orders_details` (
 --
 
 INSERT INTO `orders_details` (`id`, `order_id`, `product_id`, `quantity`, `size`, `color`) VALUES
-(532, 355, 19, 2, NULL, NULL),
-(533, 355, 20, 1, NULL, NULL),
-(534, 356, 19, 1, 'XL', NULL),
-(535, 356, 20, 2, 'M', ''),
-(536, 358, 19, 2, 'XL', 'Violet'),
-(537, 358, 20, 1, 'XS', ''),
-(538, 359, 20, 1, 'M', 'Violet'),
-(539, 359, 19, 1, 'S', 'Yellow');
+(565, 375, 32, 1, NULL, NULL),
+(566, 375, 30, 1, NULL, NULL),
+(567, 375, 31, 1, '', ''),
+(568, 376, 32, 2, 'M', ''),
+(569, 376, 29, 2, 'S', NULL),
+(570, 377, 30, 3, '', '');
 
 -- --------------------------------------------------------
 
@@ -257,16 +205,31 @@ CREATE TABLE `products` (
   `m` int(30) DEFAULT NULL,
   `l` int(30) DEFAULT NULL,
   `xl` int(30) DEFAULT NULL,
-  `xxl` int(30) DEFAULT NULL
+  `xxl` int(30) DEFAULT NULL,
+  `title_ua` varchar(50) NOT NULL,
+  `title_ru` varchar(50) NOT NULL,
+  `title_de` varchar(50) NOT NULL,
+  `price_ua` decimal(19,2) NOT NULL,
+  `price_ru` decimal(19,2) NOT NULL,
+  `price_de` decimal(19,2) NOT NULL,
+  `description_ru` text NOT NULL,
+  `description_de` text NOT NULL,
+  `description_ua` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп даних таблиці `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `image`, `images`, `description`, `price`, `quantity`, `short_desc`, `cat_id`, `xs`, `s`, `m`, `l`, `xl`, `xxl`) VALUES
-(19, 'Two-tone seed print top', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5158/863/251/5158863251_2_1_16.jpg?t=1592319150680&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5158/863/251/5158863251_2_2_16.jpg?t=1592319150680&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5158/863/251/5158863251_2_4_16.jpg?t=1592319150680&impolicy=massimodutti-itxmedium&imwidth=600', 'JOIN LIFE Care for fiber: at least 50% Sustainably Grown European Linen. Sustainably Grown European Linen is farmed using a natural irrigation system and no genetically modified seeds or defoliants. This process is water-friendly and environmentally friendly.', '74.28', 116, 'Tel. 800 333 7374 / 8 800 333 7374  Free Home Delivery over 5.000 RUB  Payments: VISA, MasterCard, American Express, MIR', 4, 20, 19, 20, 20, 17, 20),
-(20, 'Open front cape', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5665/513/830/5665513830_2_1_16.jpg?t=1596101034137&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5665/513/830/5665513830_2_6_16.jpg?t=1596101034137&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5665/513/830/5665513830_2_2_16.jpg?t=1596101034137&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5665/513/830/5665513830_2_4_16.jpg?t=1596101034137&impolicy=massimodutti-itxmedium&imwidth=600', 'JOIN LIFE Care for fiber: EcoVeroTMViscose. EcoVeroTM has been certified with the EU Ecolabel and meets the high environmental standards of the European Union from raw material to production, helping us to protect the environment.', '101.35', 26, 'Tel. 800 333 7374 / 8 800 333 7374  Free Home Delivery over 5.000 RUB  Payments: VISA, MasterCard, American Express, MIR', 3, 4, 5, 2, 5, 5, 5);
+INSERT INTO `products` (`id`, `title`, `image`, `images`, `description`, `price`, `quantity`, `short_desc`, `cat_id`, `xs`, `s`, `m`, `l`, `xl`, `xxl`, `title_ua`, `title_ru`, `title_de`, `price_ua`, `price_ru`, `price_de`, `description_ru`, `description_de`, `description_ua`) VALUES
+(25, 'Плаття з прінтом', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_1_1_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_2_4_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_2_1_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_2_3_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600', 'Опис', '5550.00', 24, 'Short Description', 6, 4, 4, 4, 4, 4, 4, 'Плаття з прінтом і волан', 'Платье с принтом', 'Deu Name', '5550.00', '10250.00', '109.99', 'Описание', 'Opys', 'Опис'),
+(26, 'Black dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_1_1_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_7_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_2_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_1_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_5_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_3_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '6999.00', 18, 'Short Description', 6, 3, 3, 3, 3, 3, 3, 'Чорне Плаття', 'Чёрное платье', 'Deu title', '10000.00', '20000.00', '7000.00', 'Описание', 'Opys', 'Опис'),
+(29, 'White Shirt-Dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_2_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_5_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_6_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_7_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_1_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_3_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '499.00', 10, 'short desc', 4, 2, 0, 2, 2, 2, 2, 'Біла сорочка', 'Белая рубашка', 'Deu title', '6999.00', '12999.00', '4999.00', 'описание', 'opys', 'опис'),
+(30, 'Dark-Blue dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_2_1_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_2_2_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_6_1_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_2_4_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_1_1_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600', 'Опис', '4999.00', 12, 'Desc', 6, 2, 2, 2, 2, 2, 2, 'Темно-Синє плаття', 'Темно-Синее платье', 'Deu title', '4999.00', '8880.00', '4449.00', 'Описание', 'Opys', 'Опис'),
+(31, 'Jacquard blouse', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_1_1_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_2_1_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_2_2_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_2_3_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '500.00', 12, 'edsc shrt', 4, 2, 2, 2, 2, 2, 2, 'Жакардова блуза', 'Жаккардовая блуза', 'Deu ', '5779.00', '12550.00', '279.99', 'Описание', 'Opys', 'Опис'),
+(32, 'Blouse with tie detail', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_5_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_3_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_1_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_4_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '8999.00', 10, 'desc', 4, 2, 2, 0, 2, 2, 2, 'Блуза з бантом', 'Блуза з бантом', 'Deu title', '8559.00', '16999.00', '299.99', 'описание', 'opys', 'опис'),
+(33, 'Brown Split', 'https://static.massimodutti.net/3/photos/2020/I/1/1/p/1160/650/700/01/1160650700_1_1_16.jpg?t=1596446724269&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/1/1/p/1160/650/700/01/1160650700_2_1_16.jpg?t=1596446724269&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/1/1/p/1160/650/700/01/1160650700_2_2_16.jpg?t=1596446724269&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/1/1/p/1160/650/700/01/1160650700_2_3_16.jpg?t=1596446724269&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '889.00', 12, 'desc', 1, 2, 2, 2, 2, 2, 2, 'Коричневі Ботільйони', 'Коричнивые Ботильйоны', 'Deu title', '8899.00', '1599.00', '599.00', 'Описание', 'Opys', 'Опис'),
+(34, 'Taupe Split Suede', 'https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_1_1_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_2_1_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_2_2_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_2_3_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '140.00', 12, 'desc', 1, 2, 2, 2, 2, 2, 2, 'Сірі чоботи із замші', 'Серые Ботинки', 'Deu title', '4999.00', '12999.00', '23555.00', 'Описание', 'Opys', 'Опис');
 
 -- --------------------------------------------------------
 
@@ -281,21 +244,29 @@ CREATE TABLE `users` (
   `first_name` varchar(255) DEFAULT 'not set',
   `last_name` varchar(255) DEFAULT 'not set',
   `role` int(10) DEFAULT 555,
-  `created` text DEFAULT NULL
+  `created` text DEFAULT NULL,
+  `phone` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп даних таблиці `users`
 --
 
-INSERT INTO `users` (`id`, `password`, `email`, `first_name`, `last_name`, `role`, `created`) VALUES
-(24, '$2b$10$y/GG/9zCjt7fk6uerp9Ffu1/8LLeDmMXBS2BOP1FfizRAbwD3CCGm', 'admin@gmail.com', 'Buzz', 'Earth', 555, '2020-07-08 21:40:05'),
-(25, '$2b$10$biutfuI2QMzU/VaIe9zwhugoiR.dIPWuXoAkj22FDsdOtsCBV8O62', 'mmm@mmm', 'mmm', 'mmm', 555, '2020-07-08 21:42:39'),
-(27, '$2b$10$3SdKyj5AWzi6Ul.OJr7KSeW/Z6rd0.5r6WtGEYnruV4u/FyNOSaIq', 'ff@ff.ffx', 'Alfach', 'Omegach', 777, '2021-07-09 09:17:22'),
-(28, '$2b$10$J6mBS4O4ITmQegfmt/Z9gOqMVOvRzSjrlV.ke5QWyQBnWZcTWmJra', 'aaa@aaa', 'aaa', 'aaa', 555, '2020-07-10 12:59:17'),
-(29, '$2b$10$nVxbGrnw4mBGQ1ZIMV92feR9b3gZmMJuPnJRNvvpCmVup5bCZ7/xm', 'zzz@zzz', 'zzz', 'zzz', 555, '2020-07-20 13:29:47'),
-(30, '$2b$10$qYVDfNV0P6hFvWYve.OggO4nvc6PuVCBA4L3O5ASl4gZwZYgj.PHe', 'xxx@xxx', 'xxx', 'xxx', 777, '2020-07-22 18:53:48'),
-(31, '$2b$10$0v13O3nZ7vAU0CjlN6mJneayjBAuAPZzO6EWxxTy1ZY0QN34JRMg.', 'ukhanskyi@gmail.om', 'Mykola', 'Ukhanskyi', 777, '2020-07-27 10:18:37');
+INSERT INTO `users` (`id`, `password`, `email`, `first_name`, `last_name`, `role`, `created`, `phone`) VALUES
+(1, '$2b$10$0v13O3nZ7vAU0CjlN6mJneayjBAuAPZzO6EWxxTy1ZY0QN34JRMg.', 'guest@gmail.om', 'Guest', 'Guest', 111, '2020-07-27 10:18:37', ''),
+(24, '$2b$10$y/GG/9zCjt7fk6uerp9Ffu1/8LLeDmMXBS2BOP1FfizRAbwD3CCGm', 'admin@gmail.com', 'Buzz', 'Earth', 555, '2020-07-08 21:40:05', ''),
+(25, '$2b$10$biutfuI2QMzU/VaIe9zwhugoiR.dIPWuXoAkj22FDsdOtsCBV8O62', 'mmm@mmm', 'mmm', 'mmm', 555, '2020-07-08 21:42:39', ''),
+(27, '$2b$10$3SdKyj5AWzi6Ul.OJr7KSeW/Z6rd0.5r6WtGEYnruV4u/FyNOSaIq', 'ff@ff.ffx', 'Alfach', 'Omegach', 777, '2021-07-09 09:17:22', ''),
+(28, '$2b$10$J6mBS4O4ITmQegfmt/Z9gOqMVOvRzSjrlV.ke5QWyQBnWZcTWmJra', 'aaa@aaa', 'aaa', 'aaa', 555, '2020-07-10 12:59:17', ''),
+(29, '$2b$10$nVxbGrnw4mBGQ1ZIMV92feR9b3gZmMJuPnJRNvvpCmVup5bCZ7/xm', 'zzz@zzz', 'zzz', 'zzz', 555, '2020-07-20 13:29:47', ''),
+(30, '$2b$10$qYVDfNV0P6hFvWYve.OggO4nvc6PuVCBA4L3O5ASl4gZwZYgj.PHe', 'xxx@xxx', 'xxx', 'xxx', 777, '2020-07-22 18:53:48', '+380660277000'),
+(32, '$2b$10$bUqwlsVYE1PCI3J5LG7xQuVhYwKOWFlr2aiPlKkkBF84kqGEQ5HNO', 's@s', 's', 's', 555, '2020-08-06 10:07:00', ''),
+(101, '$2b$10$Du.V.wMWK4Ahytf9QEIDue30P642/hJFjh6qs1n4A7xiQtQARzL/2', 'B@B', 'B', 'B', 555, '2020-08-06 14:02:06', 'B'),
+(102, '$2b$10$.hxPIlL93bAImvQHUSJ7X.bYf20XQ0NynIgiAIOMBVBKMycFwAsSm', 'ff@ff.ff', 'BZ', 'BZ', 555, '2020-08-06 14:03:08', ''),
+(103, '$2b$10$uqJSUVi6bLVej/Sb1nWCpeBqfku30oO.NeZ.fOzy1HUdt8vqerWTu', 'safsfasfasfs@asfas', 'Prrerererer', 'fsfafaf', 555, '2020-08-06 14:29:51', 'ff1wf1wf1f1wfwf1'),
+(104, '$2b$10$Pn1wTbsNe1NU/c.BDrytaeUU8KQL.26mpXkbIyM3Sq9JcnbgOOJm2', 'HH@HH', 'HHH', 'HHH', 555, '2020-08-06 14:34:27', 'HHHHHHH'),
+(105, '$2b$10$jKa.B22lmcO2Tw64BxBqIuzAEcaPymKKOxk5lb7UrirCcDc0qXQoS', 'xxx@x', 'xxx', 'xxx', 777, '2020-08-06 14:39:44', 'xxxxxx'),
+(106, '$2b$10$qidTnPjIMHCs1VF8az8WE.0X5TYN64xLkqg73wHQLZOQh2IBwQaDO', 'admin@admin', 'admin', 'admin', 777, '2020-08-10 16:03:57', '(123) 456-7890');
 
 --
 -- Індекси збережених таблиць
@@ -385,7 +356,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT для таблиці `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT для таблиці `comment_categories`
@@ -397,25 +368,25 @@ ALTER TABLE `comment_categories`
 -- AUTO_INCREMENT для таблиці `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=360;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=378;
 
 --
 -- AUTO_INCREMENT для таблиці `orders_details`
 --
 ALTER TABLE `orders_details`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=540;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=571;
 
 --
 -- AUTO_INCREMENT для таблиці `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT для таблиці `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- Обмеження зовнішнього ключа збережених таблиць
