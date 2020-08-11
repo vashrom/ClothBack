@@ -101,13 +101,7 @@ blog.delete('/:id', (req,res)=>{
         status: "ok",
         data: blog
 
-    }).catch(error)
-    {
-        res.status(500).json({
-            status: "error",
-        })
-    }
-
+    })
 })
 
 module.exports = blog;
