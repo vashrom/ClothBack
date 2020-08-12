@@ -6,8 +6,10 @@ blog.use(cors());
 const Blog = require('../models/Blog');
 
 
+
+
 /* GET all blog elements. */
-blog.get('/', function (req,res) {
+blog.get('/en', function (req,res) {
 
     Blog.findAll()
         .then(blog => {
@@ -27,16 +29,70 @@ blog.get('/', function (req,res) {
 
 })
 
+
+
+
+blog.get('/:lang', function (req,res) {
+
+    let lang = req.params.lang
+
+
+    Blog.findAll({
+        attributes: ['id', 'title_' + lang, 'image', 'images','text_'+lang, 'category_'+lang ,'date' ]
+    }
+)
+        .then(blog => {
+            if(blog.length > 0)
+            {
+                let BlogJSON = JSON.parse(JSON.stringify(blog));
+                switch (lang) {
+                    case 'ua': {
+                        BlogJSON.forEach(element => element.title = element.title_ua);
+                        BlogJSON.forEach(element => element.text = element.text_ua);
+                        BlogJSON.forEach(element => element.category = element.category_ua);
+
+                    }
+                        break;
+                    case 'de': {
+                        BlogJSON.forEach(element => element.title = element.title_de);
+                        BlogJSON.forEach(element => element.text = element.text_de);
+                        BlogJSON.forEach(element => element.category = element.category_de);
+                    }
+                        break;
+                    case 'ru': {
+                        BlogJSON.forEach(element => element.title = element.title_ru);
+                        BlogJSON.forEach(element => element.text = element.text_ru);
+                        BlogJSON.forEach(element => element.category = element.category_ru);
+                    }
+                        break;
+
+                }
+
+                res.status(200).json({
+                    blog:  BlogJSON
+                })
+            }
+            else{
+                res.json({message: 'No blog articles found'})
+            }
+        })
+        .catch(err => {
+            res.send('error: '+ err );
+        })
+
+})
+
 /* GET SINGLE BLOG ELEMENT */
-blog.get('/:id', function(req,res){
+blog.get('/en/:id', function(req,res){
     Blog.findOne({
         where: {
             id: req.params.id
-        }
+        },
     })
         .then(blog => {
             if(blog) {
-                res.json(blog);
+
+               res.json(blog);
             } else {
                 res.send('No blog articles found with this id');
             }
@@ -46,6 +102,53 @@ blog.get('/:id', function(req,res){
         })
 })
 
+
+/* GET SINGLE TRANSLATE BLOG ELEMENT */
+blog.get('/:lang/:id', function(req,res){
+
+    let lang = req.params.lang
+
+    Blog.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: ['id', 'title_' + lang, 'image', 'images','text_'+lang, 'category_'+lang ,'date' ]
+    })
+        .then(blog => {
+            if(blog) {
+                let BlogJSON = JSON.parse(JSON.stringify(blog));
+                switch (lang) {
+                    case 'ua': {
+                        BlogJSON.title = BlogJSON.title_ua;
+                        BlogJSON.text = BlogJSON.text_ua;
+                        BlogJSON.category = BlogJSON.category_ua;
+
+                    }
+                        break;
+                    case 'de': {
+                        BlogJSON.title = BlogJSON.title_de;
+                        BlogJSON.text = BlogJSON.text_de;
+                        BlogJSON.category = BlogJSON.category_de;
+                    }
+                        break;
+                    case 'ru': {
+                        BlogJSON.title = BlogJSON.title_ru;
+                        BlogJSON.text = BlogJSON.text_ru;
+                        BlogJSON.category = BlogJSON.category_ru;
+                    }
+                        break;
+
+                }
+
+                res.json(BlogJSON);
+            } else {
+                res.send('No blog articles found with this id');
+            }
+        })
+        .catch(err => {
+            res.send('error: '+err)
+        })
+})
 
 
 blog.post('/new', (req,res) => {

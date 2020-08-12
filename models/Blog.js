@@ -14,6 +14,19 @@ module.exports = db.sequelize.define(
             type: Sequelize.STRING,
             allowNull: false
         },
+        title_ua: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        title_ru: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        title_de: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+
         image: {
             type: Sequelize.STRING
         },
@@ -24,10 +37,30 @@ module.exports = db.sequelize.define(
             type: Sequelize.STRING,
             allowNull: false
         },
+        text_ua: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        text_ru: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        text_de: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
         category: {
             type: Sequelize.STRING
         },
-
+        category_ua: {
+            type: Sequelize.STRING
+        },
+        category_ru: {
+            type: Sequelize.STRING
+        },
+        category_de: {
+            type: Sequelize.STRING
+        },
         date: {
             type: Sequelize.STRING
         }
