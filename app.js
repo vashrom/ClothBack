@@ -34,7 +34,8 @@ const commentsRoute = require('./routes/comments');
 const ordersInfoRoute = require('./routes/orders_info');
 const categoryRoute = require('./routes/categories');
 const newsRoute = require('./routes/newsletters');
-const imagesRoute = require('./routes/images')
+const imagesRoute = require('./routes/images');
+const collectionRoute = require('./routes/collections');
 
 //Use Routes
 
@@ -48,7 +49,7 @@ app.use('/api/ordersinfo', ordersInfoRoute);
 app.use('/api/category', categoryRoute);
 app.use('/api/news', newsRoute);
 app.use('/api/images', imagesRoute);
-
+app.use('/api/collection', collectionRoute);
 
 
 

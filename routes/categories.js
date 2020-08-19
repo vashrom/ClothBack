@@ -75,14 +75,7 @@ category.get('/:lang', (req, res) => {
 
 
 category.post('/new', (req,res) => {
-    if(!req.body.title)
-    {
-        res.status(400)
-        res.json({
-            error: 'Bad Data'
-        })
-    }
-    else{
+
         Category.create(req.body)
             .then(data=> {
                 res.send(data)
@@ -90,7 +83,7 @@ category.post('/new', (req,res) => {
             .catch(err => {
                 res.json('error: '+err)
             })
-    }
+
 })
 
 
