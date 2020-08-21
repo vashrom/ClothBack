@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Сер 21 2020 р., 16:46
+-- Час створення: Сер 21 2020 р., 17:13
 -- Версія сервера: 10.3.13-MariaDB-log
 -- Версія PHP: 7.1.32
 
@@ -235,14 +235,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `fname`, `lname`, `country`, `street`, `postcode`, `city`, `email`, `phone`, `message`) VALUES
-(375, 1, 'Vasko', '12231', 'Ukraine', 'Ghryshevskoho', '77220', 'Tysiv', 'vas-hrom@ukr.net', '(123) 456-7890', 'WoW'),
-(376, 1, 'Vasko', 'Khromyshyn', 'Ukraine', 'Ghryshevskoho', '77220', 'Tysiv', 'vas-hrom@ukr.net', '(123) 456-7890', 'Розмір М'),
-(377, 1, 'Mykola', 'Ukhanskyi', 'Ukraine', 'Ghryshevskoho', '77220', 'Tysiv', 'ukhanskyi@gmail.om', '+380994526936', 'Cool dresssss'),
-(378, 1, 'Massimo', 'Dud\'', 'USA', 'Jackson 5', '123123', 'Las Vegas', 'admin@admin', '+380666329888', 'Yeah boy =)))'),
-(379, 1, 'Vasko', 'GSA', 'Ukraine', 'Ghryshevskoho', '77220', 'Tysiv', 'vas-hrom@ukr.net', '+380666329444', NULL),
-(380, 1, 'Vasko', 'GSA', 'Ukraine', 'SSS', '77220', 'Tysiv', 'xxx@x', '2141241244412', 'qwfqeqg'),
-(381, 107, 'MC Businezmun', 'Petya', 'Uganda', 'asdasd', 'sdfsdf', 'Bursaspor', 'rom-sing@ukr.net', '+380668044150', 'pro pidozru'),
-(382, 1, 'rtu', 'rturtu', 'rturt', 'rtu', 'rturturt', 'rtur', 'dupabobra@gmail.com', 'rturtu', 'rturtu');
+(375, 1, 'Vasko', '12231', 'Ukraine', 'Ghryshevskoho', '77220', 'Tysiv', 'vas-hrom@ukr.net', '(123) 456-7890', 'WoW');
 
 -- --------------------------------------------------------
 
@@ -266,18 +259,7 @@ CREATE TABLE `orders_details` (
 INSERT INTO `orders_details` (`id`, `order_id`, `product_id`, `quantity`, `size`, `color`) VALUES
 (565, 375, 32, 1, NULL, NULL),
 (566, 375, 30, 1, NULL, NULL),
-(567, 375, 31, 1, '', ''),
-(568, 376, 32, 2, 'M', ''),
-(569, 376, 29, 2, 'S', NULL),
-(570, 377, 30, 3, '', ''),
-(571, 378, 26, 3, 'XXL', ''),
-(572, 378, 25, 1, 'S', NULL),
-(573, 379, 33, 1, 'M', ''),
-(574, 380, 30, 1, 'M', ''),
-(575, 381, 31, 1, NULL, NULL),
-(576, 381, 26, 1, 'L', ''),
-(577, 382, 29, 1, 'XL', ''),
-(578, 382, 34, 1, 'XXL', NULL);
+(567, 375, 31, 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -362,8 +344,7 @@ INSERT INTO `users` (`id`, `password`, `email`, `first_name`, `last_name`, `role
 (103, '$2b$10$uqJSUVi6bLVej/Sb1nWCpeBqfku30oO.NeZ.fOzy1HUdt8vqerWTu', 'safsfasfasfs@asfas', 'Prrerererer', 'fsfafaf', 555, '2020-08-06 14:29:51', 'ff1wf1wf1f1wfwf1'),
 (104, '$2b$10$Pn1wTbsNe1NU/c.BDrytaeUU8KQL.26mpXkbIyM3Sq9JcnbgOOJm2', 'HH@HH', 'HHH', 'HHH', 555, '2020-08-06 14:34:27', 'HHHHHHH'),
 (105, '$2b$10$jKa.B22lmcO2Tw64BxBqIuzAEcaPymKKOxk5lb7UrirCcDc0qXQoS', 'xxx@x', 'xxx', 'xxx', 777, '2020-08-06 14:39:44', 'xxxxxx'),
-(106, '$2b$10$qidTnPjIMHCs1VF8az8WE.0X5TYN64xLkqg73wHQLZOQh2IBwQaDO', 'admin@admin', 'admin', 'admin', 777, '2020-08-10 16:03:57', '(123) 456-7890'),
-(107, '$2b$10$GYpzuQwmZLRwP.Xb8RXZVeUV1Hy5NzX.tWUIJqiQhE7G7PxVuy/MC', 'rom-sing@ukr.net', 'MC Businezmun', 'Petya', 555, '2020-08-19 16:48:34', '+380668044150');
+(106, '$2b$10$qidTnPjIMHCs1VF8az8WE.0X5TYN64xLkqg73wHQLZOQh2IBwQaDO', 'admin@admin', 'admin', 'admin', 777, '2020-08-10 16:03:57', '(123) 456-7890');
 
 --
 -- Індекси збережених таблиць
