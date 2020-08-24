@@ -101,7 +101,7 @@ orders.get('/:id', function (req,res) {
 orders.post('/payment', (req,res)=>{
     setTimeout(()=>{
         res.status(200).json({success:true})
-    },3000);
+    },6000);
 });
 
 

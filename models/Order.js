@@ -8,7 +8,6 @@ module.exports = db.sequelize.define(
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            //field: 'ID'
 
         },
         user_id: {
