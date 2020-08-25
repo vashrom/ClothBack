@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Час створення: Сер 21 2020 р., 17:13
+-- Час створення: Сер 25 2020 р., 13:35
 -- Версія сервера: 10.3.13-MariaDB-log
 -- Версія PHP: 7.1.32
 
@@ -142,8 +142,7 @@ CREATE TABLE `comments` (
 
 INSERT INTO `comments` (`id`, `name`, `email`, `text`, `cat_id`) VALUES
 (66, 'Admin', 'admin@admin', 'Hello', 2),
-(67, 'Contact', 'ff@ff.ff', 'Contact message', 1),
-(68, 'Link', 'Test@ss', 'works', 1);
+(67, 'Contact', 'ff@ff.ff', 'Contact message', 1);
 
 -- --------------------------------------------------------
 
@@ -218,7 +217,7 @@ INSERT INTO `newsletters` (`id`, `email`) VALUES
 
 CREATE TABLE `orders` (
   `id` int(10) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `fname` varchar(30) DEFAULT NULL,
   `lname` varchar(30) DEFAULT NULL,
   `country` varchar(30) DEFAULT NULL,
@@ -235,7 +234,15 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `fname`, `lname`, `country`, `street`, `postcode`, `city`, `email`, `phone`, `message`) VALUES
-(375, 1, 'Vasko', '12231', 'Ukraine', 'Ghryshevskoho', '77220', 'Tysiv', 'vas-hrom@ukr.net', '(123) 456-7890', 'WoW');
+(447, 1, 'Vasko', 'Khrom', 'Ukraine', 'Hrushevskyi street', '77220', 'Lviv', 'admin@admin', '(123) 456-7890', 'Good'),
+(448, 106, 'admin', 'admin', 'USA', 'Washington', NULL, 'Los Angeles', 'admin@admin', '(123) 456-7890', NULL),
+(449, 1, 'Vasko', 'GSA', 'Ukraine', 'SSS', NULL, 'Tysiv', 'admin@admin', '(123) 456-7890', NULL),
+(450, 1, 'Vasko', 'GSA', 'Ukraine', 'SSS', NULL, 'wgwegwe', '2qffqwfwf@Faf', '0666357641', NULL),
+(451, 106, 'admin', 'admin', 'Ukraine', 'SSS', '77220', 'ZZZ', 'admin@admin', '(123) 456-7890', NULL),
+(452, 106, 'admin', 'admin', 'Ukraine', 'SSS', NULL, 'ZZZ', 'admin@admin', '(123) 456-7890', NULL),
+(453, 106, 'admin', 'admin', 'Ukraine', 'SSS', NULL, 'ZZZ', 'admin@admin', '(123) 456-7890', NULL),
+(454, 106, 'admin', 'admin', 'Ukraine', 'Ghryshevskoho', NULL, 'ZZZ', 'admin@admin', '(123) 456-7890', NULL),
+(455, 106, 'admin', 'admin', 'Ukraine', 'SSS', NULL, 'ZZZ', 'admin@admin', '(123) 456-7890', NULL);
 
 -- --------------------------------------------------------
 
@@ -257,9 +264,16 @@ CREATE TABLE `orders_details` (
 --
 
 INSERT INTO `orders_details` (`id`, `order_id`, `product_id`, `quantity`, `size`, `color`) VALUES
-(565, 375, 32, 1, NULL, NULL),
-(566, 375, 30, 1, NULL, NULL),
-(567, 375, 31, 1, '', '');
+(656, 447, 26, 1, 'XS', ''),
+(657, 448, 29, 1, 'M', ''),
+(658, 448, 30, 1, 'XS', NULL),
+(659, 449, 26, 1, 'XXL', ''),
+(660, 450, 29, 1, 'S', ''),
+(661, 451, 26, 1, 'XS', ''),
+(662, 452, 26, 1, 'S', ''),
+(663, 453, 26, 1, 'S', ''),
+(664, 454, 26, 1, 'S', ''),
+(665, 455, 26, 1, 'XS', '');
 
 -- --------------------------------------------------------
 
@@ -300,14 +314,14 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `image`, `images`, `description`, `price`, `quantity`, `short_desc`, `cat_id`, `coll_id`, `xs`, `s`, `m`, `l`, `xl`, `xxl`, `title_ua`, `title_ru`, `title_de`, `price_ua`, `price_ru`, `price_de`, `description_ru`, `description_de`, `description_ua`) VALUES
-(25, 'Printed Dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_1_1_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_2_4_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_2_1_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_2_3_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600', 'Опис', '5550.00', 23, 'Short Description', 6, 4, 4, 3, 4, 4, 4, 4, 'Плаття з прінтом і волан', 'Платье с принтом', 'Deu Name', '5550.00', '10250.00', '109.99', 'Описание', 'Opys', 'Опис'),
-(26, 'Black dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_1_1_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_7_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_2_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_1_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_5_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_3_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '6999.00', 14, 'Short Description', 6, 2, 3, 3, 3, 2, 3, 0, 'Чорне Плаття', 'Чёрное платье', 'Deu title', '10000.00', '20000.00', '7000.00', 'Описание', 'Opys', 'Опис'),
-(29, 'White Shirt-Dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_2_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_5_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_6_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_7_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_1_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_3_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '499.00', 9, 'short desc', 4, 4, 2, 0, 2, 2, 1, 2, 'Біла сорочка', 'Белая рубашка', 'Deu title', '6999.00', '12999.00', '4999.00', 'описание', 'opys', 'опис'),
-(30, 'Dark-Blue dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_2_1_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_2_2_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_6_1_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_2_4_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_1_1_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600', 'Опис', '4999.00', 3, 'Desc', 6, 2, 0, 0, 1, 0, 0, 2, 'Темно-Синє плаття', 'Темно-Синее платье', 'Deu title', '4999.00', '8880.00', '4449.00', 'Описание', 'Opys', 'Опис'),
-(31, 'Jacquard blouse', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_1_1_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_2_1_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_2_2_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_2_3_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '500.00', 12, 'edsc shrt', 4, 5, 2, 2, 2, 2, 2, 2, 'Жакардова блуза', 'Жаккардовая блуза', 'Deu ', '5779.00', '12550.00', '279.99', 'Описание', 'Opys', 'Опис'),
-(32, 'Blouse with tie detail', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_5_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_3_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_1_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_4_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '8999.00', 10, 'desc', 4, 5, 2, 2, 0, 2, 2, 2, 'Блуза з бантом', 'Блуза з бантом', 'Deu title', '8559.00', '16999.00', '299.99', 'описание', 'opys', 'опис'),
+(25, 'Printed Dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_1_1_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_2_4_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_2_1_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6620/858/518/6620858518_2_3_16.jpg?t=1593594959686&impolicy=massimodutti-itxmedium&imwidth=600', 'Опис', '5550.00', 21, 'Short Description', 6, 4, 2, 7, 0, 9, 0, 3, 'Плаття з прінтом і волан', 'Платье с принтом', 'Deu Name', '5550.00', '10250.00', '109.99', 'Описание', 'Opys', 'Опис'),
+(26, 'Black dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_1_1_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_7_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_2_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_1_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_5_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6695/848/800/6695848800_2_3_16.jpg?t=1595523532982&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '6999.00', 39, 'Short Description', 6, 2, 6, 11, 4, 4, 8, 6, 'Чорне Плаття', 'Чёрное платье', 'Deu title', '10000.00', '20000.00', '7000.00', 'Описание', 'Opys', 'Опис'),
+(29, 'White Shirt-Dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_2_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_5_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_6_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_7_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_1_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6622/967/251/6622967251_2_3_16.jpg?t=1595597498292&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '499.00', 12, 'short desc', 4, 4, 4, 3, 2, 2, 0, 1, 'Біла сорочка', 'Белая рубашка', 'Deu title', '6999.00', '12999.00', '4999.00', 'описание', 'opys', 'опис'),
+(30, 'Dark-Blue dress', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_2_1_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_2_2_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_6_1_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_2_4_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/6685/786/800/6685786800_1_1_16.jpg?t=1596447472142&impolicy=massimodutti-itxmedium&imwidth=600', 'Опис', '4999.00', 35, 'Desc', 6, 2, 8, 2, 7, 10, 4, 4, 'Темно-Синє плаття', 'Темно-Синее платье', 'Deu title', '4999.00', '8880.00', '4449.00', 'Описание', 'Opys', 'Опис'),
+(31, 'Jacquard blouse', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_1_1_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_2_1_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_2_2_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5139/586/500/5139586500_2_3_16.jpg?t=1596646171486&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '500.00', 22, 'edsc shrt', 4, 5, 1, 2, 7, 9, 1, 2, 'Жакардова блуза', 'Жаккардовая блуза', 'Deu ', '5779.00', '12550.00', '279.99', 'Описание', 'Opys', 'Опис'),
+(32, 'Blouse with tie detail', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_5_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_3_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_1_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/0/1/p/5112/830/615/5112830615_2_4_16.jpg?t=1596649366791&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '8999.00', 22, 'desc', 4, 5, 4, 2, 4, 4, 3, 5, 'Блуза з бантом', 'Блуза з бантом', 'Deu title', '8559.00', '16999.00', '299.99', 'описание', 'opys', 'опис'),
 (33, 'Brown Split', 'https://static.massimodutti.net/3/photos/2020/I/1/1/p/1160/650/700/01/1160650700_1_1_16.jpg?t=1596446724269&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/1/1/p/1160/650/700/01/1160650700_2_1_16.jpg?t=1596446724269&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/1/1/p/1160/650/700/01/1160650700_2_2_16.jpg?t=1596446724269&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/1/1/p/1160/650/700/01/1160650700_2_3_16.jpg?t=1596446724269&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '889.00', 0, 'desc', 1, 3, 0, 0, 0, 0, 0, 0, 'Коричневі Ботільйони', 'Коричнивые Ботильйоны', 'Deu title', '8899.00', '1599.00', '599.00', 'Описание', 'Opys', 'Опис'),
-(34, 'Taupe Split Suede', 'https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_1_1_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_2_1_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_2_2_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_2_3_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '140.00', 9, 'desc', 1, 4, 0, 2, 2, 2, 2, 1, 'Сірі чоботи із замші', 'Серые Ботинки', 'Deu title', '4999.00', '12999.00', '23555.00', 'Описание', 'Opys', 'Опис');
+(34, 'Taupe Split Suede', 'https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_1_1_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600', 'https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_2_1_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_2_2_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600;https://static.massimodutti.net/3/photos/2020/I/1/1/p/1156/650/712/01/1156650712_2_3_16.jpg?t=1595504411352&impolicy=massimodutti-itxmedium&imwidth=600', 'Description', '140.00', 20, 'desc', 1, 4, 5, 10, 5, 0, 0, 0, 'Сірі чоботи із замші', 'Серые Ботинки', 'Deu title', '4999.00', '12999.00', '23555.00', 'Описание', 'Opys', 'Опис');
 
 -- --------------------------------------------------------
 
@@ -331,18 +345,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `password`, `email`, `first_name`, `last_name`, `role`, `created`, `phone`) VALUES
-(1, '$2b$10$0v13O3nZ7vAU0CjlN6mJneayjBAuAPZzO6EWxxTy1ZY0QN34JRMg.', 'guest@gmail.om', 'Guest', 'Guest', 111, '2020-07-27 10:18:37', ''),
-(24, '$2b$10$y/GG/9zCjt7fk6uerp9Ffu1/8LLeDmMXBS2BOP1FfizRAbwD3CCGm', 'admin@gmail.com', 'Buzz', 'Earth', 555, '2020-07-08 21:40:05', ''),
-(25, '$2b$10$biutfuI2QMzU/VaIe9zwhugoiR.dIPWuXoAkj22FDsdOtsCBV8O62', 'mmm@mmm', 'mmm', 'mmm', 555, '2020-07-08 21:42:39', ''),
-(27, '$2b$10$3SdKyj5AWzi6Ul.OJr7KSeW/Z6rd0.5r6WtGEYnruV4u/FyNOSaIq', 'ff@ff.ffx', 'Alfach', 'Omegach', 777, '2021-07-09 09:17:22', ''),
-(28, '$2b$10$J6mBS4O4ITmQegfmt/Z9gOqMVOvRzSjrlV.ke5QWyQBnWZcTWmJra', 'aaa@aaa', 'aaa', 'aaa', 555, '2020-07-10 12:59:17', ''),
-(29, '$2b$10$nVxbGrnw4mBGQ1ZIMV92feR9b3gZmMJuPnJRNvvpCmVup5bCZ7/xm', 'zzz@zzz', 'zzz', 'zzz', 555, '2020-07-20 13:29:47', ''),
-(30, '$2b$10$qYVDfNV0P6hFvWYve.OggO4nvc6PuVCBA4L3O5ASl4gZwZYgj.PHe', 'xxx@xxx', 'xxx', 'xxx', 777, '2020-07-22 18:53:48', '+380660277000'),
-(32, '$2b$10$bUqwlsVYE1PCI3J5LG7xQuVhYwKOWFlr2aiPlKkkBF84kqGEQ5HNO', 's@s', 's', 's', 555, '2020-08-06 10:07:00', ''),
-(101, '$2b$10$Du.V.wMWK4Ahytf9QEIDue30P642/hJFjh6qs1n4A7xiQtQARzL/2', 'B@B', 'B', 'B', 555, '2020-08-06 14:02:06', 'B'),
-(102, '$2b$10$.hxPIlL93bAImvQHUSJ7X.bYf20XQ0NynIgiAIOMBVBKMycFwAsSm', 'ff@ff.ff', 'BZ', 'BZ', 555, '2020-08-06 14:03:08', ''),
-(103, '$2b$10$uqJSUVi6bLVej/Sb1nWCpeBqfku30oO.NeZ.fOzy1HUdt8vqerWTu', 'safsfasfasfs@asfas', 'Prrerererer', 'fsfafaf', 555, '2020-08-06 14:29:51', 'ff1wf1wf1f1wfwf1'),
-(104, '$2b$10$Pn1wTbsNe1NU/c.BDrytaeUU8KQL.26mpXkbIyM3Sq9JcnbgOOJm2', 'HH@HH', 'HHH', 'HHH', 555, '2020-08-06 14:34:27', 'HHHHHHH'),
+(1, '$2b$10$unOw8Q47MZdZhrKq8GLJFeNOPTIJOoKbHjtW8s09V9oh9r8K3jjXy', 'guest@guest', 'guest', 'guest', 555, '2020-08-25 10:03:28', '(123) 456-7890'),
 (105, '$2b$10$jKa.B22lmcO2Tw64BxBqIuzAEcaPymKKOxk5lb7UrirCcDc0qXQoS', 'xxx@x', 'xxx', 'xxx', 777, '2020-08-06 14:39:44', 'xxxxxx'),
 (106, '$2b$10$qidTnPjIMHCs1VF8az8WE.0X5TYN64xLkqg73wHQLZOQh2IBwQaDO', 'admin@admin', 'admin', 'admin', 777, '2020-08-10 16:03:57', '(123) 456-7890');
 
@@ -412,7 +415,8 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `orders_details`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `order_d_to_prod` (`product_id`);
+  ADD KEY `order_d_to_prod` (`product_id`),
+  ADD KEY `order_d_to_user` (`order_id`);
 
 --
 -- Індекси таблиці `products`
@@ -484,13 +488,13 @@ ALTER TABLE `newsletters`
 -- AUTO_INCREMENT для таблиці `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=383;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=456;
 
 --
 -- AUTO_INCREMENT для таблиці `orders_details`
 --
 ALTER TABLE `orders_details`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=579;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=666;
 
 --
 -- AUTO_INCREMENT для таблиці `products`
@@ -502,7 +506,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT для таблиці `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- Обмеження зовнішнього ключа збережених таблиць
@@ -524,7 +528,8 @@ ALTER TABLE `orders`
 -- Обмеження зовнішнього ключа таблиці `orders_details`
 --
 ALTER TABLE `orders_details`
-  ADD CONSTRAINT `order_d_to_prod` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `order_d_to_prod` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `order_d_to_user` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
 
 --
 -- Обмеження зовнішнього ключа таблиці `products`

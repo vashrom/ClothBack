@@ -47,11 +47,7 @@ orders.get('/', function (req,res) {
 })
 
 /*GET SINGLE ORDER */
-orders.get('/:id', function (req,res) {
-
-
-
-
+orders.get('/en/:id', function (req,res) {
     OrderDetails.findAll({
 
         include: [
@@ -96,6 +92,81 @@ orders.get('/:id', function (req,res) {
             res.send('error: '+err)
         })
 })
+
+let lang = 'ua';
+
+orders.get('/:lang/:id', function (req,res) {
+
+    lang = req.params.lang
+
+    OrderDetails.findAll({
+
+        include: [
+            {
+                model: Order, as: 'Order',
+            },
+            {
+                model: Product, as: 'Product'
+            }
+        ],
+        where: {
+            order_id: req.params.id,
+        },
+
+        attributes: ['id','quantity', 'size','color']
+
+    })
+        .then(order=> {
+            if(order) {
+
+                let ordersJSON = JSON.parse(JSON.stringify(order));
+
+                switch (lang) {
+                    case 'ua': {
+
+                        ordersJSON.forEach(element => element.id = element.Order.id);
+                        ordersJSON.forEach(element => element.title = element.Product.title_ua);
+                        ordersJSON.forEach(element => element.description = element.Product.description_ua);
+                        ordersJSON.forEach(element => element.price = element.Product.price_ua);
+                        ordersJSON.forEach(element => element.image = element.Product.image);
+                    }
+                        break;
+                    case 'ru': {
+
+                        ordersJSON.forEach(element => element.id = element.Order.id);
+                        ordersJSON.forEach(element => element.title = element.Product.title_ru);
+                        ordersJSON.forEach(element => element.description = element.Product.description_ru);
+                        ordersJSON.forEach(element => element.price = element.Product.price_ru);
+                        ordersJSON.forEach(element => element.image = element.Product.image);
+                    }
+                        break;
+                    case 'de': {
+
+                        ordersJSON.forEach(element => element.id = element.Order.id);
+                        ordersJSON.forEach(element => element.title = element.Product.title_de);
+                        ordersJSON.forEach(element => element.description = element.Product.description_de);
+                        ordersJSON.forEach(element => element.price = element.Product.price_de);
+                        ordersJSON.forEach(element => element.image = element.Product.image);
+                    }
+                        break;
+                }
+                res.status(200).json({
+
+                    orders: ordersJSON
+
+                })
+
+
+
+            } else {
+                res.send('Order does not exist');
+            }
+        })
+        .catch(err => {
+            res.send('error: '+err)
+        })
+})
+
 
 /* FAKE PAYMENT GATEWAY CALL */
 orders.post('/payment', (req,res)=>{
