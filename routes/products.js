@@ -63,7 +63,7 @@ products.get('/ua', function (req,res) {
                 model: Collection, as: 'Collection'
             }
             ],
-        attributes: ['id','title_ua','image','images','description_ua','price_ua','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+        attributes: ['id','title_ua','image','images','description_ua','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
 
     })
         .then(products => {
@@ -73,7 +73,7 @@ products.get('/ua', function (req,res) {
                 prodsJSON.forEach(element => element.category = element.Category.title_ua);
                 prodsJSON.forEach(element => element.collection = element.Collection.title_ua);
                 prodsJSON.forEach(element =>  element.title = element.title_ua);
-                prodsJSON.forEach(element =>  element.price = element.price_ua);
+                prodsJSON.forEach(element =>  element.price = element.price);
                 prodsJSON.forEach(element =>  element.description = element.description_ua);
 
                 res.status(200).json({
@@ -103,7 +103,7 @@ products.get('/ru', function (req,res) {
                 model: Collection, as: 'Collection'
             }
         ],
-        attributes: ['id','title_ru','image','images','description_ru','price_ru','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+        attributes: ['id','title_ru','image','images','description_ru','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
 
     })
         .then(products => {
@@ -113,7 +113,7 @@ products.get('/ru', function (req,res) {
                 prodsJSON.forEach(element => element.category = element.Category.title_ru);
                 prodsJSON.forEach(element => element.collection = element.Collection.title_ru);
                 prodsJSON.forEach(element =>  element.title = element.title_ru);
-                prodsJSON.forEach(element =>  element.price = element.price_ru);
+                prodsJSON.forEach(element =>  element.price = element.price);
                 prodsJSON.forEach(element =>  element.description = element.description_ru);
 
                 res.status(200).json({
@@ -221,7 +221,7 @@ products.get('/ua/:id', function(req,res){
                 model: Collection, as: 'Collection'
             }
         ],
-        attributes: ['id','title_ua','image','images','description_ua','price_ua','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+        attributes: ['id','title_ua','image','images','description_ua','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
 
     })
         .then(product => {
@@ -230,7 +230,7 @@ products.get('/ua/:id', function(req,res){
                 prodJSON.category = prodJSON.Category.title_ua;
                 prodJSON.collection = prodJSON.Collection.title_ua;
                 prodJSON.title = prodJSON.title_ua;
-                prodJSON.price = prodJSON.price_ua;
+                prodJSON.price = prodJSON.price;
                 prodJSON.description = prodJSON.description_ua;
 
                 res.json(prodJSON);
@@ -255,7 +255,7 @@ products.get('/ru/:id', function(req,res){
                 model: Collection, as: 'Collection'
             }
             ],
-        attributes: ['id','title_ru','image','images','description_ru','price_ru','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+        attributes: ['id','title_ru','image','images','description_ru','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
 
     })
         .then(product => {
@@ -264,7 +264,7 @@ products.get('/ru/:id', function(req,res){
                 prodJSON.category = prodJSON.Category.title_ru;
                 prodJSON.collection = prodJSON.Collection.title_ru;
                 prodJSON.title = prodJSON.title_ru;
-                prodJSON.price = prodJSON.price_ru;
+                prodJSON.price = prodJSON.price;
                 prodJSON.description = prodJSON.description_ru;
 
                 res.json(prodJSON);
@@ -360,7 +360,7 @@ products.get('/ua/category/:cat_name', (req, res) => {
             where: {
                 '$Category.title$': req.params.cat_name
             },
-            attributes: ['id','title_ua','image','images','description_ua','price_ua','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+            attributes: ['id','title_ua','image','images','description_ua','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
         }
     )
         .then(products => {
@@ -370,7 +370,7 @@ products.get('/ua/category/:cat_name', (req, res) => {
                 prodsJSON.forEach(element => element.category = element.Category.title_ua);
                 prodsJSON.forEach(element => element.collection = element.Collection.title_ua);
                 prodsJSON.forEach(element =>  element.title = element.title_ua);
-                prodsJSON.forEach(element =>  element.price = element.price_ua);
+                prodsJSON.forEach(element =>  element.price = element.price);
                 prodsJSON.forEach(element =>  element.description = element.description_ua);
 
                 res.json(prodsJSON)
@@ -398,7 +398,7 @@ products.get('/ru/category/:cat_name', (req, res) => {
             where: {
                 '$Category.title$': req.params.cat_name
             },
-            attributes: ['id','title_ru','image','images','description_ru','price_ru','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+            attributes: ['id','title_ru','image','images','description_ru','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
         }
     )
         .then(products => {
@@ -408,7 +408,7 @@ products.get('/ru/category/:cat_name', (req, res) => {
                 prodsJSON.forEach(element => element.category = element.Category.title_ru);
                 prodsJSON.forEach(element => element.collection = element.Collection.title_ru);
                 prodsJSON.forEach(element =>  element.title = element.title_ru);
-                prodsJSON.forEach(element =>  element.price = element.price_ru);
+                prodsJSON.forEach(element =>  element.price = element.price);
                 prodsJSON.forEach(element =>  element.description = element.description_ru);
 
                 res.json(prodsJSON)
@@ -512,7 +512,7 @@ products.get('/:lang/collection/:cat_name', (req, res) => {
             where: {
                 '$Collection.title$': req.params.cat_name
             },
-            attributes: ['id','title_'+lang,'image','images','description_'+lang,'price_'+lang,'quantity', 'cat_id','xs','s','m','l','xl','xxl']
+            attributes: ['id','title_'+lang,'image','images','description_'+lang,'price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
         }
     )
         .then(products => {
@@ -526,7 +526,7 @@ products.get('/:lang/collection/:cat_name', (req, res) => {
                         prodsJSON.forEach(element => element.category = element.Category.title_ua);
                         prodsJSON.forEach(element => element.collection = element.Collection.title_ua);
                         prodsJSON.forEach(element =>  element.title = element.title_ua);
-                        prodsJSON.forEach(element =>  element.price = element.price_ua);
+                        prodsJSON.forEach(element =>  element.price = element.price);
                         prodsJSON.forEach(element =>  element.description = element.description_ua);
                     }
                     break;
@@ -534,7 +534,7 @@ products.get('/:lang/collection/:cat_name', (req, res) => {
                         prodsJSON.forEach(element => element.category = element.Category.title_ru);
                         prodsJSON.forEach(element => element.collection = element.Collection.title_ru);
                         prodsJSON.forEach(element =>  element.title = element.title_ru);
-                        prodsJSON.forEach(element =>  element.price = element.price_ru);
+                        prodsJSON.forEach(element =>  element.price = element.price);
                         prodsJSON.forEach(element =>  element.description = element.description_ru);
                     }
                         break;

@@ -127,7 +127,7 @@ orders.get('/:lang/:id', function (req,res) {
                         ordersJSON.forEach(element => element.id = element.Order.id);
                         ordersJSON.forEach(element => element.title = element.Product.title_ua);
                         ordersJSON.forEach(element => element.description = element.Product.description_ua);
-                        ordersJSON.forEach(element => element.price = element.Product.price_ua);
+                        ordersJSON.forEach(element => element.price = element.Product.price);
                         ordersJSON.forEach(element => element.image = element.Product.image);
                     }
                         break;
@@ -136,7 +136,7 @@ orders.get('/:lang/:id', function (req,res) {
                         ordersJSON.forEach(element => element.id = element.Order.id);
                         ordersJSON.forEach(element => element.title = element.Product.title_ru);
                         ordersJSON.forEach(element => element.description = element.Product.description_ru);
-                        ordersJSON.forEach(element => element.price = element.Product.price_ru);
+                        ordersJSON.forEach(element => element.price = element.Product.price);
                         ordersJSON.forEach(element => element.image = element.Product.image);
                     }
                         break;
@@ -145,7 +145,7 @@ orders.get('/:lang/:id', function (req,res) {
                         ordersJSON.forEach(element => element.id = element.Order.id);
                         ordersJSON.forEach(element => element.title = element.Product.title_de);
                         ordersJSON.forEach(element => element.description = element.Product.description_de);
-                        ordersJSON.forEach(element => element.price = element.Product.price_de);
+                        ordersJSON.forEach(element => element.price = element.Product.price);
                         ordersJSON.forEach(element => element.image = element.Product.image);
                     }
                         break;

@@ -53,7 +53,7 @@ ordinfo.get('/', function (req,res) {
             },
                 {
                     model: Product, as: 'Product',
-                    attributes: ['id', 'title_' + lang, 'image', 'images', 'description_' + lang, 'price_' + lang, 'quantity', 'cat_id', 'xs', 's', 'm', 'l', 'xl', 'xxl']
+                    attributes: ['id', 'title_' + lang, 'image', 'images', 'description_' + lang, 'price', 'quantity', 'cat_id', 'xs', 's', 'm', 'l', 'xl', 'xxl']
 
                 }
             ],
@@ -69,7 +69,7 @@ ordinfo.get('/', function (req,res) {
                 switch (lang) {
                     case 'ua': {
                         OrdersJSON.forEach(element => element.Product.title = element.Product.title_ua);
-                        OrdersJSON.forEach(element => element.Product.price = element.Product.price_ua);
+                        OrdersJSON.forEach(element => element.Product.price = element.Product.price);
                         OrdersJSON.forEach(element => element.Product.description = element.Product.description_ua);
 
 
@@ -77,13 +77,13 @@ ordinfo.get('/', function (req,res) {
                         break;
                     case 'de': {
                         OrdersJSON.forEach(element => element.Product.title = element.Product.title_de);
-                        OrdersJSON.forEach(element => element.Product.price = element.Product.price_de);
+                        OrdersJSON.forEach(element => element.Product.price = element.Product.price);
                         OrdersJSON.forEach(element => element.Product.description = element.Product.description_de);
                     }
                         break;
                     case 'ru': {
                         OrdersJSON.forEach(element => element.Product.title = element.Product.title_ru);
-                        OrdersJSON.forEach(element => element.Product.price = element.Product.price_ru);
+                        OrdersJSON.forEach(element => element.Product.price = element.Product.price);
                         OrdersJSON.forEach(element => element.Product.description = element.Product.description_ru);
                     }
                         break;
