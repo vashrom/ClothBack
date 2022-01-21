@@ -8,6 +8,8 @@ var app = require('../app');
 var debug = require('debug')('backend:server');
 var http = require('http');
 
+
+
 /**
  * Get port from environment and store in Express.
  */
@@ -87,6 +89,9 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  console.log('Server working :)');
-
+  console.log('Server working :)')
 }
+
+
+// var privateKey = fs.readFileSync('privatekey.pem').toString();
+// var certificate = fs.readFileSync('certificate.pem').toString();

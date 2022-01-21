@@ -22,6 +22,9 @@ module.exports = db.sequelize.define(
         title_de: {
             type: Sequelize.STRING
         },
+        coll_id: {
+            type: Sequelize.INTEGER
+        }
     },
     {
         timestamps: false

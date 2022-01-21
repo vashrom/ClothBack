@@ -4,6 +4,7 @@ const orders = express.Router();
 const Order = require('../models/Order');
 const OrderDetails = require('../models/OrderDetails');
 const Product = require('../models/Product');
+const mailer = require("./../nodemailer");
 
 
 // /* GET all orders. */
@@ -185,6 +186,10 @@ orders.post('/new', (req,res) => {
     let {userId,fname, lname,country,street,postcode,city,email,phone,message, products} = req.body;
 
     if(userId != null && userId > 0 && !isNaN(userId)) {
+
+      
+        
+
         Order.create({
             user_id: userId,
             fname: fname,
@@ -239,11 +244,13 @@ orders.post('/new', (req,res) => {
                             console.log(":)")
                     }
 
+
+
                     //Deduct the number of pieces ordered from the quantity column in db
                     if(data.quantity>0)
                     {
-                        //data.quantity = data.quantity-inCart;
-                        data.quantity = data.xs+data.s+data.m+data.l+data.xl+data.xxl;
+                        data.quantity = data.quantity-inCart;
+                        // data.quantity = data.xs+data.s+data.m+data.l+data.xl+data.xxl;
 
 
                         if(data.quantity < 0){
@@ -291,6 +298,22 @@ orders.post('/new', (req,res) => {
             else {
                 res.json({message: 'new order failed while adding order details', success: false})
             }
+
+            const adminMessage = {
+                to: 'macaronshopservice@gmail.com',
+                subject: 'New Order!',
+                text: 'Hooraaaay!'
+            }
+
+            const userMessage = {
+                to: email,
+                subject: 'Ваше замовлення прийняте в роботу!',
+                text: `Номер замовлення ${newOrder.id} \nДякуємо за ваш вибір!`
+            }
+
+            mailer(adminMessage)
+            mailer(userMessage)
+
             res.json({
                 message: `Order successfully placed with order id ${newOrder.id}`,
                 success: true,

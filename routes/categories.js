@@ -37,7 +37,7 @@ category.get('/:lang', (req, res) => {
     lang = req.params.lang
 
     Category.findAll({
-                attributes: ['id', 'title_' + lang, 'title']
+                attributes: ['id', 'title_' + lang, 'title', 'coll_id']
     }).then(category => {
         if (category) {
             let CategoryJSON = JSON.parse(JSON.stringify(category));

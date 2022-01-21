@@ -82,6 +82,9 @@ module.exports = db.sequelize.define(
             },
             description_de: {
                 type: Sequelize.STRING
+            },
+            weight: {
+                type: Sequelize.BOOLEAN
             }
         },
         {

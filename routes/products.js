@@ -63,7 +63,7 @@ products.get('/ua', function (req,res) {
                 model: Collection, as: 'Collection'
             }
             ],
-        attributes: ['id','title_ua','image','images','description_ua','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+        attributes: ['id','short_desc','title_ua','image','images','description_ua','price','quantity', 'cat_id','xs','s','m','l','xl','xxl', 'weight']
 
     })
         .then(products => {
@@ -103,7 +103,7 @@ products.get('/ru', function (req,res) {
                 model: Collection, as: 'Collection'
             }
         ],
-        attributes: ['id','title_ru','image','images','description_ru','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+        attributes: ['id', 'short_desc' ,'title_ru','image','images','description_ru','price','quantity', 'cat_id','xs','s','m','l','xl','xxl','weight']
 
     })
         .then(products => {
@@ -143,7 +143,7 @@ products.get('/de', function (req,res) {
                 model: Collection, as: 'Collection'
             }
             ],
-        attributes: ['id','title_de','image','images','description_de','price_de','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+        attributes: ['id','title_de','image','images','description_de','price_de','quantity', 'cat_id','xs','s','m','l','xl','xxl', 'weight']
 
     })
         .then(products => {
@@ -221,7 +221,7 @@ products.get('/ua/:id', function(req,res){
                 model: Collection, as: 'Collection'
             }
         ],
-        attributes: ['id','title_ua','image','images','description_ua','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+        attributes: ['id','short_desc','title_ua','image','images','description_ua','price','quantity', 'cat_id','xs','s','m','l','xl','xxl', 'weight']
 
     })
         .then(product => {
@@ -255,7 +255,7 @@ products.get('/ru/:id', function(req,res){
                 model: Collection, as: 'Collection'
             }
             ],
-        attributes: ['id','title_ru','image','images','description_ru','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+        attributes: ['id','short_desc','title_ru','image','images','description_ru','price','quantity', 'cat_id','xs','s','m','l','xl','xxl','weight']
 
     })
         .then(product => {
@@ -289,7 +289,7 @@ products.get('/de/:id', function(req,res){
                 model: Collection, as: 'Collection'
             }
         ],
-        attributes: ['id','title_de','image','images','description_de','price_de','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+        attributes: ['id','title_de','image','images','description_de','price_de','quantity', 'cat_id','xs','s','m','l','xl','xxl','weight']
 
     })
         .then(product => {
@@ -360,7 +360,7 @@ products.get('/ua/category/:cat_name', (req, res) => {
             where: {
                 '$Category.title$': req.params.cat_name
             },
-            attributes: ['id','title_ua','image','images','description_ua','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+            attributes: ['id','title_ua','image','images','description_ua','price','quantity', 'cat_id','xs','s','m','l','xl','xxl','weight']
         }
     )
         .then(products => {
@@ -398,7 +398,7 @@ products.get('/ru/category/:cat_name', (req, res) => {
             where: {
                 '$Category.title$': req.params.cat_name
             },
-            attributes: ['id','title_ru','image','images','description_ru','price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+            attributes: ['id','title_ru','image','images','description_ru','price','quantity', 'cat_id','xs','s','m','l','xl','xxl','weight']
         }
     )
         .then(products => {
@@ -436,7 +436,7 @@ products.get('/de/category/:cat_name', (req, res) => {
             where: {
                 '$Category.title$': req.params.cat_name
             },
-            attributes: ['id','title_de','image','images','description_de','price_de','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+            attributes: ['id','title_de','image','images','description_de','price_de','quantity', 'cat_id','xs','s','m','l','xl','xxl','weight']
         }
     )
         .then(products => {
@@ -512,7 +512,7 @@ products.get('/:lang/collection/:cat_name', (req, res) => {
             where: {
                 '$Collection.title$': req.params.cat_name
             },
-            attributes: ['id','title_'+lang,'image','images','description_'+lang,'price','quantity', 'cat_id','xs','s','m','l','xl','xxl']
+            attributes: ['id','title_'+lang,'image','images','description_'+lang,'price','quantity', 'cat_id','xs','s','m','l','xl','xxl','weight']
         }
     )
         .then(products => {
